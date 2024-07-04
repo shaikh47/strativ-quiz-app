@@ -1,23 +1,27 @@
-/* eslint-disable react/prop-types */
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { Form, Input } from "antd";
 import { Navigate } from "react-router-dom";
-
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { type RootStateType } from "../../../store/rootStore";
+import { increment } from "../../../store/authentication/authSlice";
 
 type LoginProps = {
   loginClick: () => void;
-}
+};
 
 type FormValues = {
   email: string;
   password: string;
-}
+};
 
 const Login: React.FC<LoginProps> = ({ loginClick }) => {
+  const dispatch = useDispatch();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [loginStatus, setLoginStatus] = useState<string>("loggedout");
   const [response, setResponse] = useState<string>("");
+
+  const counter = useSelector((store: RootStateType) => store.auth.counter);
 
   const onFinish = async (values: FormValues) => {
     console.log("response is: ", response, "input: ", values);
@@ -44,6 +48,15 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
         <p className="text-center mb-5 text-xl font-medium text-[#282860] opacity-90">
           Login to answer questions
         </p>
+
+        <button
+          onClick={() => {
+            console.log("Clicked");
+            dispatch(increment(1))
+          }}
+        >
+          Increment {counter}
+        </button>
 
         <Form
           name="basic"

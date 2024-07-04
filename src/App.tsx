@@ -1,67 +1,16 @@
 import "./App.css";
 import { AppProvider } from "./providers";
 import { AppRoutes } from "./routes";
-
-const DummyComponent = () => {
-  return (
-    <>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-    </>
-  );
-};
-DummyComponent();
+import { Provider } from "react-redux";
+import store from "./store/rootStore";
 
 function App() {
   return (
-    <AppProvider>
-      <AppRoutes />
-    </AppProvider>
+    <Provider store={store}>
+      <AppProvider>
+        <AppRoutes />
+      </AppProvider>
+    </Provider>
   );
 }
 

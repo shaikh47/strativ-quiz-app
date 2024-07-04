@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { Form, Input } from "antd";
 import { Navigate } from "react-router-dom";
