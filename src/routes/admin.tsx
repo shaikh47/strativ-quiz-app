@@ -75,13 +75,17 @@ const DummyComponent = () => {
 
 export const adminRoutes: RouteObject[] = [
   {
-    path: "",
+    path: "/",
     element: <App />,
     errorElement: <div>Error</div>,
     children: [
       {
         path: "question/*",
         element: <div>This should be the question page</div>,
+      },
+      {
+        path: "answer/*",
+        element: <div>This should be the answer page</div>,
       },
     ],
   },

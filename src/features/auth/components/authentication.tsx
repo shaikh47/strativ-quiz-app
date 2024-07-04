@@ -1,5 +1,5 @@
 import SignUp from "./user-registration";
-import Login from "./user-login";
+import Login from "./login";
 import { useState } from "react";
 // type AuthFormProps = {};
 

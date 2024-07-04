@@ -1,10 +1,10 @@
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { type RootStateType } from "../../../store/rootStore";
-import { increment } from "../../../store/authentication/authSlice";
+import { increment, login } from "../../../store/authentication/authSlice";
 
 type LoginProps = {
   loginClick: () => void;
@@ -19,13 +19,23 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
   const dispatch = useDispatch();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [loginStatus, setLoginStatus] = useState<string>("loggedout");
-  const [response, setResponse] = useState<string>("");
 
   const counter = useSelector((store: RootStateType) => store.auth.counter);
+  const isAuthenticated = useSelector(
+    (store: RootStateType) => store.auth.isAuthenticated
+  );
+  const authenticatedUser = useSelector(
+    (store: RootStateType) => store.auth.user
+  );
 
   const onFinish = async (values: FormValues) => {
-    console.log("response is: ", response, "input: ", values);
-    // Handle login logic here
+    try {
+      dispatch(
+        login({ email: values.email.trim(), password: values.password.trim() })
+      );
+    } catch (err) {
+      message.error("Could not Login");
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -40,8 +50,10 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
     setLoginStatus("loggedout");
   };
 
-  if (loginStatus === "loggedin") {
-    return <Navigate replace to="/contact" />;
+  if (isAuthenticated === true) {
+    // check the user role here
+    return <Navigate replace to="/take-quiz" />;
+    return <Navigate replace to="/manage-questions" />;
   } else {
     return (
       <div className="flex flex-col items-center justify-center gap-5 rounded-lg shadow-2xl p-16">
@@ -50,9 +62,10 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
         </p>
 
         <button
+          className="hidden"
           onClick={() => {
             console.log("Clicked");
-            dispatch(increment(1))
+            dispatch(increment(1));
           }}
         >
           Increment {counter}
@@ -71,7 +84,7 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
         >
           <Form.Item
             validateStatus={loginStatus === "loginerror" ? "error" : ""}
-            style={{ margin: "0" }}
+            className="m-0"
             name="email"
             rules={[
               {

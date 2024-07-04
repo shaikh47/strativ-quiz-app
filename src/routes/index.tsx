@@ -3,23 +3,28 @@ import { adminRoutes } from "./admin";
 import { generalRoutes } from "./general";
 import { LandingPage } from "../features/landing/routes/landing";
 import { AuthRoutes } from "../features/auth";
+import { useSelector } from "react-redux";
+import { type RootStateType } from "../store/rootStore";
 
 export const AppRoutes = () => {
-  const role = "admin";
-  const commonRoutes = [{ path: '/', element: <LandingPage /> }, { path: '/Auth', element: <AuthRoutes /> }];
+  const isAuthenticated = useSelector(
+    (store: RootStateType) => store.auth.isAuthenticated
+  );
+  const authenticatedUser = useSelector(
+    (store: RootStateType) => store.auth.user
+  );
+
+
+  const commonRoutes = [{ path: '/', element: <LandingPage /> }, { path: '/auth', element: <AuthRoutes /> }];
 
   let routes: RouteObject[] = [{ path: "*", element: <></> }];
-  if (role === "admin") {
+  if (isAuthenticated && authenticatedUser?.role === 'admin') {
     routes = adminRoutes;
-  } else if (role === "general") {
+  } else if (isAuthenticated && authenticatedUser?.role === 'user') {
     routes = generalRoutes;
   }
 
   const element = useRoutes([...routes, ...commonRoutes]);
 
   return element;
-
-  // TODO: Modify using createBrowserRouter
-  // const router = createBrowserRouter([...routes, ...commonRoutes]);
-  // return <RouterProvider router={router} />;
 };
