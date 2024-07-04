@@ -1,14 +1,14 @@
-import { Spinner } from '../components/elements';
-import { MainLayout } from '../components/layout';
-import { Suspense } from 'react';
-import { Navigate, Outlet, useLocation, type RouteObject } from 'react-router-dom';
+import { Spinner } from "../components/elements";
+import { MainLayout } from "../components/layout";
+import { Suspense } from "react";
+import { Outlet, type RouteObject } from "react-router-dom";
 
-const Layout = () => {
+const App = () => {
   return (
     <MainLayout>
       <Suspense
         fallback={
-          <div className='grid h-full w-full place-content-center place-items-center'>
+          <div className="grid h-full w-full place-content-center place-items-center">
             <Spinner />
           </div>
         }
@@ -19,20 +19,74 @@ const Layout = () => {
   );
 };
 
-export const protectedRoutes: RouteObject[] = [
+const DummyComponent = () => {
+  return (
+    <>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+    </>
+  );
+};
+
+export const adminRoutes: RouteObject[] = [
   {
-    path: '',
-    element: <Layout />,
+    path: "",
+    element: <App />,
     errorElement: <div>Error</div>,
     children: [
       {
-        path: 'questions/*',
+        path: "question/*",
         element: <div>This should be the question page</div>,
       },
     ],
   },
   {
-    path: '*',
+    path: "*",
     element: <div>Not Found</div>,
     errorElement: <div>Error</div>,
   },

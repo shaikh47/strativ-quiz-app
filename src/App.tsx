@@ -1,78 +1,67 @@
-import { useState } from "react";
 import "./App.css";
-import { MainLayout } from "./components/layout";
+import { AppProvider } from "./providers";
+import { AppRoutes } from "./routes";
+
+const DummyComponent = () => {
+  return (
+    <>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+      <div className="bg-slate-400">This is the main content</div>
+    </>
+  );
+};
+DummyComponent();
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <MainLayout>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-      <div className="bg-emerald-400">This is the main content</div>
-    </MainLayout>
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
   );
 }
 

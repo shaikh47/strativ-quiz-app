@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
 import {
   AppstoreOutlined,
   MailOutlined,
@@ -35,10 +34,10 @@ type NavbarPropsType = {
 
 const Navbar = ({ className = "" }: NavbarPropsType) => {
   return (
-    <div className="bg-slate-600">
-      <div className="w-full bg-green-500 max-w-7xl mx-auto">
+    <div className="shadow-xl">
+      <div className="w-full max-w-7xl mx-auto">
         <Menu
-          className={clsx(className, " max-w-7xl")}
+          className={clsx(className, "max-w-7xl")}
           mode="horizontal"
           defaultSelectedKeys={["231"]}
           items={items}
@@ -54,9 +53,9 @@ type MainLayoutProps = {
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <div className="w-full h-full bg-red-200">
-      <Navbar className="bg-slate-600" />
-      <div className="h-full flex flex-col overflow-hidden bg-gray-300">
+    <div className="w-full h-full">
+      <Navbar className="" />
+      <div className="h-full flex flex-col overflow-hidden">
         <div className="flex-1 flex overflow-hidden">
           <div className="max-w-7xl mx-auto w-full h-full">
             <main className="flex-1 relative overflow-y-auto h-full">
