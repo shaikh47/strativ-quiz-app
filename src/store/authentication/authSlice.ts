@@ -17,15 +17,15 @@ type AuthState = {
 
 const mockUsers: User[] = [
   {
-    username: 'superadmin',
-    email: 'superadmin@example.com',
-    password: 'superadminpassword', // This should be hashed in a real application
+    username: 'shaikhadmin',
+    email: 'omarshaikh4777@gmail.com',
+    password: 'bjit1234', // This should be hashed in a real application
     role: 'admin',
   },
   {
-    username: 'user1',
-    email: 'user1@example.com',
-    password: 'user1password', // This should be hashed in a real application
+    username: 'shaikh',
+    email: 'omarshaikh47@gmail.com',
+    password: 'bjit1234', // This should be hashed in a real application
     role: 'user',
   },
 ];

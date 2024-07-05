@@ -19,60 +19,6 @@ const App = () => {
   );
 };
 
-const DummyComponent = () => {
-  return (
-    <>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-      <div className="bg-slate-400">This is the main content</div>
-    </>
-  );
-};
-
 export const adminRoutes: RouteObject[] = [
   {
     path: "/",
@@ -80,12 +26,8 @@ export const adminRoutes: RouteObject[] = [
     errorElement: <div>Error</div>,
     children: [
       {
-        path: "question/*",
-        element: <div>This should be the question page</div>,
-      },
-      {
-        path: "answer/*",
-        element: <div>This should be the answer page</div>,
+        path: "manage-questions/*",
+        element: <div>Edit questions in this page</div>,
       },
     ],
   },

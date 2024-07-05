@@ -52,8 +52,11 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
 
   if (isAuthenticated === true) {
     // check the user role here
-    return <Navigate replace to="/take-quiz" />;
-    return <Navigate replace to="/manage-questions" />;
+    if (authenticatedUser?.role === "user")
+      return <Navigate replace to="/take-quiz" />;
+    else if (authenticatedUser?.role === "admin")
+      return <Navigate replace to="/manage-questions" />;
+    else <Navigate replace to="/auth" />;
   } else {
     return (
       <div className="flex flex-col items-center justify-center gap-5 rounded-lg shadow-2xl p-16">
@@ -124,9 +127,6 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
               }
             />
           </Form.Item>
-          {loginStatus === "loginerror" && (
-            <p className="text-red-500">{response}</p>
-          )}
           <button className="signup-button w-full rounded-lg bg-[#720455] py-1 text-md font-semibold leading-7 mt-8 text-white hover:bg-[#3c0753]">
             Login
           </button>

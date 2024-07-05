@@ -1,7 +1,6 @@
-import { useRoutes, type RouteObject } from "react-router-dom";
+import { Navigate, useRoutes, type RouteObject } from "react-router-dom";
 import { adminRoutes } from "./admin";
 import { generalRoutes } from "./general";
-import { LandingPage } from "../features/landing/routes/landing";
 import { AuthRoutes } from "../features/auth";
 import { useSelector } from "react-redux";
 import { type RootStateType } from "../store/rootStore";
@@ -14,13 +13,12 @@ export const AppRoutes = () => {
     (store: RootStateType) => store.auth.user
   );
 
+  const commonRoutes = [{ path: "/auth", element: <AuthRoutes /> }];
+  let routes: RouteObject[] = [{ path: "*", element: <Navigate to="/auth" /> }];
 
-  const commonRoutes = [{ path: '/', element: <LandingPage /> }, { path: '/auth', element: <AuthRoutes /> }];
-
-  let routes: RouteObject[] = [{ path: "*", element: <></> }];
-  if (isAuthenticated && authenticatedUser?.role === 'admin') {
+  if (isAuthenticated && authenticatedUser?.role === "admin") {
     routes = adminRoutes;
-  } else if (isAuthenticated && authenticatedUser?.role === 'user') {
+  } else if (isAuthenticated && authenticatedUser?.role === "user") {
     routes = generalRoutes;
   }
 

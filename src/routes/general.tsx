@@ -1,20 +1,45 @@
-import { Navigate, useLocation, type RouteObject } from 'react-router-dom';
-import { AuthRoutes } from '../features/auth';
+import { Spinner } from "../components/elements";
+import { MainLayout } from "../components/layout";
+import { Suspense } from "react";
+import { Outlet, type RouteObject } from "react-router-dom";
+import { namedLazyImport } from "../utils/named-lazy-import";
 
-const RedirectToAuth = () => {
-  const location = useLocation();
-  const from = `${location.pathname}${location.search}`;
-  const state = { from };
-  return <Navigate replace to='/auth' state={state} />;
+const { QuizPage } = namedLazyImport(
+  async () => import('../features/general-user/routes/quiz-page'),
+  'QuizPage',
+);
+
+const App = () => {
+  return (
+    <MainLayout>
+      <Suspense
+        fallback={
+          <div className="grid h-full w-full place-content-center place-items-center">
+            <Spinner />
+          </div>
+        }
+      >
+        <Outlet />
+      </Suspense>
+    </MainLayout>
+  );
 };
 
 export const generalRoutes: RouteObject[] = [
   {
-    path: '/auth',
-    element: <AuthRoutes />,
+    path: "/",
+    element: <App />,
+    errorElement: <div>Error</div>,
+    children: [
+      {
+        path: "take-quiz/*",
+        element: <QuizPage />,
+      },
+    ],
   },
   {
-    path: '*',
-    element: <RedirectToAuth />,
+    path: "*",
+    element: <div>Not Found</div>,
+    errorElement: <div>Error</div>,
   },
 ];

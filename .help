@@ -1,1 +1,15 @@
 * use existing admins to onboard new admins 
+
+
+export type QuestionAnswerViewProps = {
+}
+
+const QuestionAnswerView = ({}: QuestionAnswerViewProps) => {
+  return (
+    <div>
+      
+    </div>
+  );
+}
+
+export default QuestionAnswerView;
