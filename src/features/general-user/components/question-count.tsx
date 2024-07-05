@@ -34,7 +34,6 @@ const QuestionCount = ({
   };
 
   const handleMarkQuestionClick = () => {
-    console.log("cliked");
     if (markedQuestions.includes(currentQuestionNumber)) {
       removeMarkedQuestion(currentQuestionNumber);
     } else {
@@ -53,7 +52,7 @@ const QuestionCount = ({
                 "w-10 h-10 p-2 bg-gray-50 rounded-full flex items-center justify-center cursor-pointer",
                 markedQuestions.includes(index + 1) && "bg-indigo-300",
                 answeredQuestions.includes(index + 1) && "bg-green-400",
-                (currentQuestionNumber === index+1) && "outline outline-2"
+                currentQuestionNumber === index + 1 && "outline outline-2"
               )}
               onClick={() => onTileClick(index + 1)}
               key={index}

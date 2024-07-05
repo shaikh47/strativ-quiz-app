@@ -26,7 +26,7 @@ export const QuizPage = () => {
   );
 
   const onTileClick = (clickedQuestion: number) => {
-    console.log("Clicked Tile: ", clickedQuestion);
+    setSelectedQuestionNumber(clickedQuestion - 1);
   };
 
   const handleNextClick = () => {
@@ -54,12 +54,15 @@ export const QuizPage = () => {
           nextClick={handleNextClick}
           prevClick={handlePreviousClick}
         />
-        <QuestionCount
-          currentQuestionNumber={selectedQuestionNumber + 1}
-          answeredQuestions={[1, 2, 3]}
-          questionCount={quizProgress.length}
-          onTileClick={onTileClick}
-        />
+        <div className="flex flex-col gap-6">
+          <QuestionCount
+            currentQuestionNumber={selectedQuestionNumber + 1}
+            answeredQuestions={[1, 2, 3]}
+            questionCount={quizProgress.length}
+            onTileClick={onTileClick}
+          />
+          <button className="rounded-md bg-sky-900 hover:bg-sky-800 w-full p-2 text-white">Submit</button>
+        </div>
       </div>
     </ContentLayout>
   );

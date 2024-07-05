@@ -53,17 +53,19 @@ type MainLayoutProps = {
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <div className="w-full h-full">
-      <Navbar className="" />
-      <div className="h-full flex flex-col overflow-hidden">
-        <div className="flex-1 flex overflow-hidden">
-          <div className="max-w-7xl mx-auto w-full h-full">
-            <main className="flex-1 relative overflow-y-auto h-full">
-              {children}
-            </main>
+    <>
+      <Navbar className="fixed top-0 w-full z-10 bg-white shadow-lg" />
+      <div className="w-full h-full pt-14">
+        <div className="h-full flex flex-col overflow-hidden">
+          <div className="flex-1 flex overflow-hidden">
+            <div className="max-w-7xl mx-auto w-full h-full">
+              <main className="flex-1 relative overflow-y-auto h-full">
+                {children}
+              </main>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
