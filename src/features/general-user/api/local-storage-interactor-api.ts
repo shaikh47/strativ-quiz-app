@@ -49,9 +49,15 @@ export const getQuizzes = (): Quiz[] => {
   return JSON.parse(localStorage.getItem("quizzes") || "[]");
 };
 
-export const getUserResponses = (userId: string): UserResponse[] => {
-  const responses: UserResponse[] = JSON.parse(
-    localStorage.getItem("userResponses") || "[]"
+export const getUserResponses = (userEmail: string): UserResponseType[] => {
+  const responses: UserResponseType[] = JSON.parse(
+    localStorage.getItem(save_response_key) || "[]"
   );
-  return responses.filter((response) => response.userId === userId);
+  return responses.filter((response) => response.userEmail === userEmail);
 };
+
+
+
+// next task is to create a page which will redirect user to a page where he can see 
+// 1. all his attempted quizzes
+// 2. a button to start new quiz 

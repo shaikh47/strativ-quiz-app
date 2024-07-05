@@ -24,7 +24,7 @@ const OptionView = ({
     >
       <div
         className={clsx(
-          "h-8 w-8 rounded-full bg-slate-400 flex items-center justify-center text-white"
+          "h-8 w-8 p-4 rounded-full bg-slate-400 flex items-center justify-center text-white"
         )}
       >
         {optionNumber}

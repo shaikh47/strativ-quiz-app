@@ -4,9 +4,9 @@ import { Suspense } from "react";
 import { Outlet, type RouteObject } from "react-router-dom";
 import { namedLazyImport } from "../utils/named-lazy-import";
 
-const { QuizPage } = namedLazyImport(
-  async () => import('../features/general-user/routes/quiz-page'),
-  'QuizPage',
+const { QuizPageRoutes } = namedLazyImport(
+  async () => import("../features/general-user/routes/index"),
+  "QuizPageRoutes"
 );
 
 const App = () => {
@@ -33,7 +33,7 @@ export const generalRoutes: RouteObject[] = [
     children: [
       {
         path: "take-quiz/*",
-        element: <QuizPage />,
+        element: <QuizPageRoutes />,
       },
     ],
   },
