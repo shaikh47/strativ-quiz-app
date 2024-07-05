@@ -5,11 +5,13 @@ import QuestionCount from "../components/question-count";
 import { type AnswerType, type QuestionType } from "../../../types";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  saveAnswer,
   setLastAttemptDate,
 } from "../../../store/quizProgress/quizProgressSlice";
 import { type RootStateType } from "../../../store/rootStore";
 import { useState } from "react";
+import { saveState } from "../../../utils/browser-storage";
+import { getCurrentDateTime } from "../../../utils/date";
+import { saveUserResponse, type UserResponseType } from "../api/local-storage-interactor-api";
 
 type MockQuesType = {
   question: QuestionType;
@@ -21,8 +23,8 @@ export const QuizPage = () => {
   const quizProgress = useSelector(
     (state: RootStateType) => state.quizProgress.quizProgress
   );
-  const lastAttemptDate = useSelector(
-    (state: RootStateType) => state.quizProgress.lastAttemptDate
+  const currentUser = useSelector(
+    (state: RootStateType) => state.auth.user
   );
 
   const onTileClick = (clickedQuestion: number) => {
@@ -40,6 +42,15 @@ export const QuizPage = () => {
       setSelectedQuestionNumber(selectedQuestionNumber - 1);
     }
   };
+
+  const handleQuizSubmit = () => {
+    const userResponse: UserResponseType = {
+      userEmail: currentUser?.email!,
+      attemptTime: getCurrentDateTime(),
+      quiz: quizProgress,
+    };
+    saveUserResponse(userResponse);
+  }
 
   return (
     <ContentLayout title={"Take Quiz"}>
@@ -61,7 +72,7 @@ export const QuizPage = () => {
             questionCount={quizProgress.length}
             onTileClick={onTileClick}
           />
-          <button className="rounded-md bg-sky-900 hover:bg-sky-800 w-full p-2 text-white">Submit</button>
+          <button className="rounded-md bg-sky-900 hover:bg-sky-800 w-full p-2 text-white" onClick={handleQuizSubmit}>Submit</button>
         </div>
       </div>
     </ContentLayout>
