@@ -2,21 +2,11 @@ import clsx from "clsx";
 import { ContentLayout } from "../../../components/layout";
 import QuestionAnswerView from "../components/question-answer-view";
 import QuestionCount from "../components/question-count";
-import { type AnswerType, type QuestionType } from "../../../types";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setLastAttemptDate,
-} from "../../../store/quizProgress/quizProgressSlice";
+import { useSelector } from "react-redux";
 import { type RootStateType } from "../../../store/rootStore";
 import { useState } from "react";
-import { saveState } from "../../../utils/browser-storage";
 import { getCurrentDateTime } from "../../../utils/date";
 import { saveUserResponse, type UserResponseType } from "../api/local-storage-interactor-api";
-
-type MockQuesType = {
-  question: QuestionType;
-  answer: AnswerType;
-};
 
 export const QuizPage = () => {
   const [selectedQuestionNumber, setSelectedQuestionNumber] = useState(0);

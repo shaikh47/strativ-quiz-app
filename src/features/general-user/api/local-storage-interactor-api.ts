@@ -1,11 +1,10 @@
 import { type UserType } from "../../../domains/models/user";
 import { type AnsweredStateType } from "../../../store/quizProgress/quizProgressSlice";
-import { getCurrentDateTime } from "../../../utils/date";
 
 type Quiz = {
   id: string;
   title: string;
-  questions: Question[];
+  questions: any;
   email: string;
   timestamp: string;
 };
@@ -41,7 +40,7 @@ export const saveUserResponse = (response: UserResponseType) => {
 };
 
 // getters
-export const getUsers = (): User[] => {
+export const getUsers = (): any => {
   return JSON.parse(localStorage.getItem("users") || "[]");
 };
 
@@ -55,9 +54,3 @@ export const getUserResponses = (userEmail: string): UserResponseType[] => {
   );
   return responses.filter((response) => response.userEmail === userEmail);
 };
-
-
-
-// next task is to create a page which will redirect user to a page where he can see 
-// 1. all his attempted quizzes
-// 2. a button to start new quiz 

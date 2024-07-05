@@ -1,4 +1,3 @@
-import { type QuestionType, type AnswerType } from "../../../types";
 import DescriptiveAnswerPanel from "./descriptive-answer";
 import MultichoiceAnswerPanel from "./multichoice-answer";
 import { FaChevronRight } from "react-icons/fa6";
@@ -46,6 +45,8 @@ const AnswerPanel = ({
   const progress = useSelector(
     (store: RootStateType) => store.quizProgress.quizProgress
   );
+
+  console.log(studentAnswer)
 
   const onOptionClick = (optionNumber: number, option: string) => {
     dispatch(

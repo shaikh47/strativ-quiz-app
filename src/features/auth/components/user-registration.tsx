@@ -17,10 +17,9 @@ interface FormValues {
 const SignUp: React.FC<SignUpProps> = ({ loginClick }) => {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [loginStatus, setLoginStatus] = useState<string>("loggedout");
-  const [response, setResponse] = useState<string>("");
 
   const onFinish = async (values: FormValues) => {
-    console.log("response is: ", response, "input: ", values);
+    console.log("input: ", values);
     // Handle sign up logic here
   };
 
@@ -135,7 +134,7 @@ const SignUp: React.FC<SignUpProps> = ({ loginClick }) => {
             />
           </Form.Item>
           {loginStatus === "loginerror" && (
-            <p className="text-red-500">{response}</p>
+            <p className="text-red-500">{'response'}</p>
           )}
           <button className="signup-button w-full rounded-lg bg-[#720455] py-1 text-md font-semibold leading-7 text-white hover:bg-[#3c0753]">
             Create Account

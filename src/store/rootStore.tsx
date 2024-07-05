@@ -21,7 +21,7 @@ const combinedReducers = combineReducers({
 });
 
 // combineReducers will be handled internally by configureStore
-const rootReducer = (state, action) => {
+const rootReducer = (state: any, action: any) => {
   if (action.type === "therapist/logoutResetStore") {
     state = undefined;
   }

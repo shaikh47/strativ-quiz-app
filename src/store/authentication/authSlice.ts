@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { saveState, loadState } from "../../utils/browser-storage";
+import { loadState } from "../../utils/browser-storage";
 
 type User = {
   username: string;

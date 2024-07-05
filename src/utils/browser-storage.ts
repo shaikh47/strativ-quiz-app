@@ -16,21 +16,3 @@ export async function saveState<T>(state: T, key: string): Promise<void> {
     console.log(e, "Error saving the state");
   }
 }
-
-
-
-// interface AppState {
-//     user: { name: string; email: string };
-//     loggedIn: boolean;
-//   }
-  
-//   // Load state
-//   const state = loadState<AppState>();
-  
-//   // Save state
-//   const newState: AppState = {
-//     user: { name: "John Doe", email: "john@example.com" },
-//     loggedIn: true,
-//   };
-//   saveState(newState);
-  
