@@ -1,41 +1,63 @@
 import clsx from "clsx";
-import { useNavigate } from "react-router-dom";
 import { ContentLayout } from "../../../components/layout";
 import QuestionAnswerView from "../components/question-answer-view";
 import QuestionCount from "../components/question-count";
 import { type AnswerType, type QuestionType } from "../../../types";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  saveAnswer,
+  setLastAttemptDate,
+} from "../../../store/quizProgress/quizProgressSlice";
+import { type RootStateType } from "../../../store/rootStore";
+import { useState } from "react";
 
 type MockQuesType = {
   question: QuestionType;
   answer: AnswerType;
-}
-
-const mockques: MockQuesType[] = [
-  {
-    question: "Which is the tallest mountain in the world?",
-    answer: { answerType: "descriptive", answer: "", optionNumber: -1 },
-  },
-];
+};
 
 export const QuizPage = () => {
-  const navigate = useNavigate();
+  const [selectedQuestionNumber, setSelectedQuestionNumber] = useState(0);
+  const quizProgress = useSelector(
+    (state: RootStateType) => state.quizProgress.quizProgress
+  );
+  const lastAttemptDate = useSelector(
+    (state: RootStateType) => state.quizProgress.lastAttemptDate
+  );
 
   const onTileClick = (clickedQuestion: number) => {
     console.log("Clicked Tile: ", clickedQuestion);
   };
 
+  const handleNextClick = () => {
+    if (selectedQuestionNumber < quizProgress.length - 1) {
+      setSelectedQuestionNumber(selectedQuestionNumber + 1);
+    }
+  };
+
+  const handlePreviousClick = () => {
+    if (selectedQuestionNumber > 0) {
+      setSelectedQuestionNumber(selectedQuestionNumber - 1);
+    }
+  };
+
   return (
     <ContentLayout title={"Take Quiz"}>
-      <div className="grid grid-cols-[2fr_1fr] gap-10 sp:grid-cols-1">
+      <div
+        className={clsx(
+          "grid grid-cols-[2fr_1fr] gap-10 sp:grid-cols-1 h-full"
+        )}
+      >
         <QuestionAnswerView
-          question={mockques[0].question}
-          questionNumber={0}
-          answer={mockques[0].answer}
+          selectedQuestionNumber={selectedQuestionNumber}
+          selectedQuestion={quizProgress[selectedQuestionNumber]}
+          nextClick={handleNextClick}
+          prevClick={handlePreviousClick}
         />
         <QuestionCount
-          currentQuestionNumber={4}
+          currentQuestionNumber={selectedQuestionNumber + 1}
           answeredQuestions={[1, 2, 3]}
-          questionCount={20}
+          questionCount={quizProgress.length}
           onTileClick={onTileClick}
         />
       </div>

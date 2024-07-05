@@ -1,10 +1,12 @@
+import { TextInput } from "../../../components/elements";
+
 export type DescriptiveAnswerPanelProps = {
 }
 
 const DescriptiveAnswerPanel = ({}: DescriptiveAnswerPanelProps) => {
   return (
     <div>
-      this should be descriptive question
+      <TextInput />
     </div>
   );
 }

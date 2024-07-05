@@ -43,16 +43,17 @@ const QuestionCount = ({
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full shadow-2xl p-6 rounded-md">
+    <div className="flex flex-col gap-6 w-full h-min shadow-2xl p-6 rounded-md">
       <p>Question {`${currentQuestionNumber}/${questionCount}`}</p>
       <div className="flex flex-wrap gap-3">
         {questionTiles.map((_, index) => {
           return (
             <div
               className={clsx(
-                "w-10 h-10 p-2 outline outline-1 bg-gray-50 rounded-full flex items-center justify-center cursor-pointer",
+                "w-10 h-10 p-2 bg-gray-50 rounded-full flex items-center justify-center cursor-pointer",
                 markedQuestions.includes(index + 1) && "bg-indigo-300",
-                answeredQuestions.includes(index + 1) && "bg-green-400"
+                answeredQuestions.includes(index + 1) && "bg-green-400",
+                (currentQuestionNumber === index+1) && "outline outline-2"
               )}
               onClick={() => onTileClick(index + 1)}
               key={index}
