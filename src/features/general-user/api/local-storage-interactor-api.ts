@@ -2,14 +2,6 @@ import { type UserType } from "../../../domains/models/user";
 import { type AnsweredStateType } from "../../../store/quizProgress/quizProgressSlice";
 import { type QuestionStructureType } from "../../../store/addQuestion/addQuestionSlice";
 
-type Quiz = {
-  id: string;
-  title: string;
-  questions: any;
-  email: string;
-  timestamp: string;
-};
-
 export type UserResponseType = {
   userEmail: string;
   attemptTime: string;
@@ -38,8 +30,45 @@ export const saveUserResponse = (response: UserResponseType) => {
   localStorage.setItem(save_response_key, JSON.stringify(userResponses));
 };
 
-export const updateUserResponse = (response: UserResponseType, entryIndex: number) => {
+export const updateUserResponse = (
+  response: UserResponseType,
+  entryIndex: number,
+  updatedAnswer: {
+    attemptedAnswer: string;
+    optionNumber: number;
+  }
+) => {
+  // Check if the entryIndex is valid
+  if (entryIndex < 0 || entryIndex >= response.quiz.length) {
+    throw new Error("Invalid entry index");
+  }
 
+  const quizEntry = response.quiz[entryIndex];
+
+  let newAttemptedAnswer = quizEntry.answer.attemptedAnswers;
+
+  if (quizEntry.answer.isMultichoice) {
+    if (!newAttemptedAnswer.includes(updatedAnswer.attemptedAnswer)) {
+      newAttemptedAnswer = [
+        ...newAttemptedAnswer,
+        updatedAnswer.attemptedAnswer,
+      ];
+    }
+  } else {
+    newAttemptedAnswer = [updatedAnswer.attemptedAnswer];
+  }
+
+  response.quiz[entryIndex] = {
+    ...quizEntry,
+    answer: {
+      ...quizEntry.answer,
+      isAnswered: true,
+      attemptedAnswers: newAttemptedAnswer,
+      optionNumber: updatedAnswer.optionNumber,
+    },
+  };
+
+  return response;
 };
 
 // getters

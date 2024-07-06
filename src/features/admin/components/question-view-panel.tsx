@@ -23,7 +23,7 @@ const QuestionViewPanel = ({ quiz }: QuestionViewPanelProps) => {
           <TextArea
             placeholder="Add Option"
             autoSize
-            value={quiz.answer.attemptedAnswer}
+            value={quiz.answer.attemptedAnswers.slice(-1)[0]}
           />
         </p>
       </div>

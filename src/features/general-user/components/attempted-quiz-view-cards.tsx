@@ -25,7 +25,7 @@ const AttemptedQuizViewCards = ({
               )}
               key={index}
               onClick={() => {
-                navigate(`/take-quiz/attempt/`);
+                navigate(`/take-quiz/history/${index}`);
               }}
             >
               <div className={clsx("")}>

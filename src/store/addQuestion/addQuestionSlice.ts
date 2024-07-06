@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import mockQuizQuestions from "../mock-ques";
 import { type AnswerType } from "../../types";
 import { message } from "antd";
 import { getQuiz } from "../../features/general-user/api/local-storage-interactor-api";

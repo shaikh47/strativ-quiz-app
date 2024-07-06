@@ -14,6 +14,7 @@ const buttonStyle =
 export type QuestionAnswerViewProps = {
   selectedQuestionNumber: number;
   selectedQuestion: AnsweredStateType;
+  isPastQuiz: boolean;
   nextClick: () => void;
   prevClick: () => void;
 };
@@ -21,7 +22,7 @@ export type QuestionAnswerViewProps = {
 const QuestionPanel = ({
   selectedQuestion,
   selectedQuestionNumber,
-}: Omit<QuestionAnswerViewProps, "nextClick" | "prevClick">) => {
+}: Omit<QuestionAnswerViewProps, "nextClick" | "prevClick" | "isPastQuiz">) => {
   return (
     <div className="p-5 shadow-2xl grid gap-4">
       <p>{`Question ${selectedQuestionNumber + 1}`}</p>
@@ -34,11 +35,13 @@ type AnswerPanelPropsType = {
   studentAnswer: any;
   givenAnswer: any;
   selectedQuestionNumber: number;
+  isPastQuiz: boolean;
 };
 
 const AnswerPanel = ({
   studentAnswer,
   givenAnswer,
+  isPastQuiz,
   selectedQuestionNumber,
 }: AnswerPanelPropsType) => {
   const dispatch = useDispatch();
@@ -46,7 +49,7 @@ const AnswerPanel = ({
     (store: RootStateType) => store.quizProgress.quizProgress
   );
 
-  console.log(studentAnswer)
+  console.log("this studentAnswer: ", studentAnswer);
 
   const onOptionClick = (optionNumber: number, option: string) => {
     dispatch(
@@ -54,6 +57,7 @@ const AnswerPanel = ({
         questionName: givenAnswer.question,
         attemptedAnswer: option,
         optionNumber: optionNumber,
+        givenOptions: givenAnswer.answer.options,
         isMarked: false,
       })
     );
@@ -64,6 +68,7 @@ const AnswerPanel = ({
       saveAnswer({
         questionName: givenAnswer.question,
         attemptedAnswer: typedAnswer,
+        givenOptions: givenAnswer.answer.options,
         optionNumber: -1,
         isMarked: false,
       })
@@ -81,7 +86,11 @@ const AnswerPanel = ({
         />
       ) : (
         <DescriptiveAnswerPanel
-          value={progress[selectedQuestionNumber].answer.attemptedAnswer}
+          value={
+            progress[selectedQuestionNumber].answer.attemptedAnswers.slice(
+              -1
+            )[0]
+          }
           onTypingEnd={onTypingEnd}
         />
       )}
@@ -92,6 +101,7 @@ const AnswerPanel = ({
 const QuestionAnswerView = ({
   selectedQuestion,
   selectedQuestionNumber,
+  isPastQuiz,
   nextClick,
   prevClick,
 }: QuestionAnswerViewProps) => {
@@ -102,7 +112,8 @@ const QuestionAnswerView = ({
         selectedQuestionNumber={selectedQuestionNumber}
       />
       <AnswerPanel
-        studentAnswer={selectedQuestion.answer}
+        isPastQuiz={isPastQuiz}
+        studentAnswer={selectedQuestion.answer.attemptedAnswers}
         givenAnswer={getQuiz()[selectedQuestionNumber]}
         selectedQuestionNumber={selectedQuestionNumber}
       />

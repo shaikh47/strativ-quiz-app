@@ -10,14 +10,18 @@ import {
   saveUserResponse,
   type UserResponseType,
 } from "../api/local-storage-interactor-api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getUserResponses } from "../api/local-storage-interactor-api";
 
-export const QuizPage = () => {
+export const EditPastQuizPage = () => {
   const navigate = useNavigate();
+  const { responseId } = useParams<{ responseId: string }>();
+  const attemptedResponse: UserResponseType =
+    getUserResponses()[parseInt(responseId!)];
+
+  console.log("attempted respo: ", attemptedResponse.quiz);
+
   const [selectedQuestionNumber, setSelectedQuestionNumber] = useState(0);
-  const quizProgress = useSelector(
-    (state: RootStateType) => state.quizProgress.quizProgress
-  );
   const currentUser = useSelector((state: RootStateType) => state.auth.user);
 
   const onTileClick = (clickedQuestion: number) => {
@@ -25,7 +29,7 @@ export const QuizPage = () => {
   };
 
   const handleNextClick = () => {
-    if (selectedQuestionNumber < quizProgress.length - 1) {
+    if (selectedQuestionNumber < attemptedResponse.quiz.length - 1) {
       setSelectedQuestionNumber(selectedQuestionNumber + 1);
     }
   };
@@ -36,18 +40,18 @@ export const QuizPage = () => {
     }
   };
 
-  const handleQuizSubmit = () => {
+  const handleQuizUpdate = () => {
     const userResponse: UserResponseType = {
       userEmail: currentUser?.email!,
       attemptTime: getCurrentDateTime(),
-      quiz: quizProgress,
+      quiz: attemptedResponse.quiz,
     };
-    saveUserResponse(userResponse);
-    navigate('/take-quiz/history');
+    // saveUserResponse(userResponse);
+    navigate("/take-quiz/history");
   };
 
   const getAnsweredQuestions = (): number[] => {
-    return quizProgress
+    return attemptedResponse.quiz
       .map((item, index) => (item.answer.isAnswered ? index + 1 : null))
       .filter((index) => index !== null);
   };
@@ -60,9 +64,9 @@ export const QuizPage = () => {
         )}
       >
         <QuestionAnswerView
-          selectedQuestionNumber={selectedQuestionNumber}
-          selectedQuestion={quizProgress[selectedQuestionNumber]}
           isPastQuiz={false}
+          selectedQuestionNumber={selectedQuestionNumber}
+          selectedQuestion={attemptedResponse.quiz[selectedQuestionNumber]}
           nextClick={handleNextClick}
           prevClick={handlePreviousClick}
         />
@@ -70,14 +74,14 @@ export const QuizPage = () => {
           <QuestionCount
             currentQuestionNumber={selectedQuestionNumber + 1}
             answeredQuestions={getAnsweredQuestions()}
-            questionCount={quizProgress.length}
+            questionCount={attemptedResponse.quiz.length}
             onTileClick={onTileClick}
           />
           <button
             className="rounded-md bg-sky-900 hover:bg-sky-800 w-full p-2 text-white"
-            onClick={handleQuizSubmit}
+            onClick={handleQuizUpdate}
           >
-            Submit
+            Update
           </button>
         </div>
       </div>

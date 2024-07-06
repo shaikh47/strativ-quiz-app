@@ -5,8 +5,9 @@ export type AnsweredStateType = {
   question: string;
   answer: {
     isAnswered: boolean;
-    attemptedAnswer: string;
+    attemptedAnswers: string[];
     optionNumber: number;
+    givenOptions: string[],
     isMultichoice: boolean;
   };
 };
@@ -21,7 +22,8 @@ const answerInitialState: AnsweredStateType[] = getQuiz().map((question) => {
     question: question.question,
     answer: {
       isAnswered: false,
-      attemptedAnswer: "",
+      attemptedAnswers: [""],
+      givenOptions: [""],
       optionNumber: -1,
       isMultichoice: false,
     },
@@ -46,10 +48,11 @@ const quizProgress = createSlice({
         questionName: string;
         attemptedAnswer: string;
         optionNumber: number;
+        givenOptions: string[];
         isMarked: boolean;
       }>
     ) {
-      const { questionName, attemptedAnswer, optionNumber } =
+      const { questionName, attemptedAnswer, optionNumber, givenOptions } =
         action.payload;
       const questionIndex = state.quizProgress.findIndex(
         (q) => q.question === questionName
@@ -57,7 +60,8 @@ const quizProgress = createSlice({
       if (questionIndex !== -1) {
         state.quizProgress[questionIndex].answer = {
           isAnswered: true,
-          attemptedAnswer: attemptedAnswer,
+          attemptedAnswers: [attemptedAnswer],
+          givenOptions: givenOptions,
           optionNumber: optionNumber,
           isMultichoice: state.quizProgress[questionIndex].answer.isMultichoice,
         };
