@@ -89,7 +89,7 @@ const AnswerPanel = ({
             className="flex items-center justify-end text-sm cursor-pointer"
             onClick={showModal}
           >
-            <p className="border-black border border-1 rounded-md px-2">
+            <p className="border-black border border-1 rounded-sm px-2">
               View Past Answer
             </p>
           </div>

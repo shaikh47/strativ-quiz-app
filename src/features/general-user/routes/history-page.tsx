@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { ContentLayout } from "../../../components/layout";
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import {
   getUserResponses,
@@ -15,12 +15,23 @@ export const QuizHistoryPage = () => {
 
   const user = useSelector((store: RootStateType) => store.auth.user);
   const attempted_quizzes: UserResponseType[] = getUserResponses(user?.email!);
+  const quizProgress = useSelector(
+    (state: RootStateType) => state.quizProgress.quizProgress
+  );
+  console.log("this shit: ", quizProgress);
 
   return (
     <ContentLayout title={"Taken Quizzes"}>
       <div className={clsx("grid gap-10")}>
-        <button className="bg-[#5F6CE1] hover:bg-[#4e5cdb] text-white font-medium py-2 px-10 rounded-md justify-self-center" onClick={() => navigate('/take-quiz/attempt')}>Attempt Quiz</button>
-        <AttemptedQuizViewCards attemptedQuizzes={attempted_quizzes}/>
+        <button
+          className="bg-[#5F6CE1] hover:bg-[#4e5cdb] text-white font-medium py-2 px-10 rounded-md justify-self-center"
+          onClick={() => {
+            navigate("/take-quiz/attempt");
+          }}
+        >
+          Attempt Quiz
+        </button>
+        <AttemptedQuizViewCards attemptedQuizzes={attempted_quizzes} />
       </div>
     </ContentLayout>
   );

@@ -10,8 +10,9 @@ import {
   saveUserResponse,
   type UserResponseType,
 } from "../api/local-storage-interactor-api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { clearProgressState } from "../../../store/quizProgress/quizProgressSlice";
+import { message } from "antd";
 
 export const QuizPage = () => {
   const navigate = useNavigate();
@@ -55,6 +56,11 @@ export const QuizPage = () => {
       .map((item, index) => (item.answer.isAnswered ? index + 1 : null))
       .filter((index) => index !== null);
   };
+
+  if (quizProgress.length === 0) {
+    message.info('No question is set at this moment. Wait for admin to set question.')
+    return <Navigate to={"/take-quiz/history"}/>
+  } 
 
   return (
     <ContentLayout title={"Take Quiz"}>

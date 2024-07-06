@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadState } from "../../utils/browser-storage";
 import { type User } from "../../types/auth";
 import { compareHash } from "../../utils/crypto";
+import { message } from "antd";
 
 type AuthState = {
   isAuthenticated: boolean;
@@ -12,22 +13,25 @@ type AuthState = {
 
 const mockUsers: User[] = [
   {
-    username: 'shaikhadmin',
-    email: 'omarshaikh4777@gmail.com',
-    password: 'bde9ce4929e0ea510f5e6dca398ac89f91dfe1ef715f77b223839eadb9269fda', // This should be hashed in a real application
-    role: 'admin',
+    username: "shaikhadmin",
+    email: "admin1@gmail.com",
+    password:
+      "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", // This should be hashed in a real application
+    role: "admin",
   },
   {
-    username: 'shaikh',
-    email: 'omarshaikh47@gmail.com',
-    password: 'bde9ce4929e0ea510f5e6dca398ac89f91dfe1ef715f77b223839eadb9269fda', // This should be hashed in a real application
-    role: 'user',
+    username: "shaikhuser",
+    email: "user1@gmail.com",
+    password:
+      "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", // This should be hashed in a real application
+    role: "user",
   },
   {
-    username: 'shaikh-school',
-    email: 'syed15-8699@diu.edu.bd',
-    password: 'bde9ce4929e0ea510f5e6dca398ac89f91dfe1ef715f77b223839eadb9269fda', // This should be hashed in a real application
-    role: 'user',
+    username: "shaikh-school",
+    email: "user2@gmail.com",
+    password:
+      "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", // This should be hashed in a real application
+    role: "user",
   },
 ];
 
@@ -47,9 +51,14 @@ const authSlice = createSlice({
     increment: (state, action: PayloadAction<number>) => {
       state.counter += action.payload;
     },
-    login: (state, action: PayloadAction<{ email: string; password: string }>) => {
+    login: (
+      state,
+      action: PayloadAction<{ email: string; password: string }>
+    ) => {
       const { email, password } = action.payload;
-      const user = state.users.find((user) => user.email === email && compareHash(user.password, password));
+      const user = state.users.find(
+        (user) => user.email === email && compareHash(user.password, password)
+      );
 
       if (user) {
         state.isAuthenticated = true;
@@ -58,21 +67,30 @@ const authSlice = createSlice({
         throw new Error("Invalid credentials");
       }
     },
-    signup: (state, action: PayloadAction<{ username: string; email: string; password: string }>) => {
+    signup: (
+      state,
+      action: PayloadAction<{
+        username: string;
+        email: string;
+        password: string;
+      }>
+    ) => {
       const { username, email, password } = action.payload;
       const existingUser = state.users.find((user) => user.email === email);
       if (!existingUser) {
-        const newUser: User = { username, email, password, role: 'user' };
+        const newUser: User = { username, email, password, role: "user" };
         state.users.push(newUser);
         state.isAuthenticated = true;
         state.user = newUser;
       } else {
+        message.error("User already exists");
         new Error("User already exists");
       }
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
+      window.location.reload();
     },
   },
 });
