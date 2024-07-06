@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadState } from "../../utils/browser-storage";
-
-type User = {
-  username: string;
-  email: string;
-  password: string; // This should be hashed in a real application
-  role: 'admin' | 'user';
-};
+import { type User } from "../../types/auth";
 
 type AuthState = {
   isAuthenticated: boolean;

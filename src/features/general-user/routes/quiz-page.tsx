@@ -6,16 +6,19 @@ import { useSelector } from "react-redux";
 import { type RootStateType } from "../../../store/rootStore";
 import { useState } from "react";
 import { getCurrentDateTime } from "../../../utils/date";
-import { saveUserResponse, type UserResponseType } from "../api/local-storage-interactor-api";
+import {
+  saveUserResponse,
+  type UserResponseType,
+} from "../api/local-storage-interactor-api";
+import { useNavigate } from "react-router-dom";
 
 export const QuizPage = () => {
+  const navigate = useNavigate();
   const [selectedQuestionNumber, setSelectedQuestionNumber] = useState(0);
   const quizProgress = useSelector(
     (state: RootStateType) => state.quizProgress.quizProgress
   );
-  const currentUser = useSelector(
-    (state: RootStateType) => state.auth.user
-  );
+  const currentUser = useSelector((state: RootStateType) => state.auth.user);
 
   const onTileClick = (clickedQuestion: number) => {
     setSelectedQuestionNumber(clickedQuestion - 1);
@@ -40,7 +43,14 @@ export const QuizPage = () => {
       quiz: quizProgress,
     };
     saveUserResponse(userResponse);
-  }
+    navigate('/take-quiz/history');
+  };
+
+  const getAnsweredQuestions = (): number[] => {
+    return quizProgress
+      .map((item, index) => (item.answer.isAnswered ? index + 1 : null))
+      .filter((index) => index !== null);
+  };
 
   return (
     <ContentLayout title={"Take Quiz"}>
@@ -58,11 +68,16 @@ export const QuizPage = () => {
         <div className="flex flex-col gap-6">
           <QuestionCount
             currentQuestionNumber={selectedQuestionNumber + 1}
-            answeredQuestions={[1, 2, 3]}
+            answeredQuestions={getAnsweredQuestions()}
             questionCount={quizProgress.length}
             onTileClick={onTileClick}
           />
-          <button className="rounded-md bg-sky-900 hover:bg-sky-800 w-full p-2 text-white" onClick={handleQuizSubmit}>Submit</button>
+          <button
+            className="rounded-md bg-sky-900 hover:bg-sky-800 w-full p-2 text-white"
+            onClick={handleQuizSubmit}
+          >
+            Submit
+          </button>
         </div>
       </div>
     </ContentLayout>

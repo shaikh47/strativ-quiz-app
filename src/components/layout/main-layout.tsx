@@ -1,46 +1,74 @@
 import * as React from "react";
 import { Menu } from "antd";
-import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import clsx, { type ClassValue } from "clsx";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/authentication/authSlice";
 
 type MenuItem = Required<MenuProps>["items"][number];
-
-const items: MenuItem[] = [
-  {
-    key: "1",
-    icon: <MailOutlined />,
-    label: "Navigation One",
-  },
-  {
-    key: "2",
-    icon: <AppstoreOutlined />,
-    label: "Navigation Two",
-  },
-  {
-    key: "3",
-    icon: <SettingOutlined />,
-    label: "Navigation Three",
-  },
-];
 
 type NavbarPropsType = {
   className: ClassValue;
 };
 
 const Navbar = ({ className = "" }: NavbarPropsType) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispath = useDispatch();
+
+  const general_user_options: MenuItem[] = [
+    {
+      key: "/take-quiz/history",
+      icon: <MailOutlined />,
+      label: "History",
+      onClick: () => navigate("/take-quiz/history"),
+    },
+    {
+      key: "/take-quiz/attempt",
+      icon: <AppstoreOutlined />,
+      label: "Take Quiz",
+      onClick: () => navigate("/take-quiz/attempt"),
+    },
+    {
+      key: "logout",
+      icon: <AppstoreOutlined />,
+      className: '!ml-auto',
+      label: "Logout",
+      onClick: () => dispath(logout()),
+    },
+  ];
+
+  const admin_user_options: MenuItem[] = [
+    {
+      key: "/set-quistion/something",
+      icon: <MailOutlined />,
+      label: "History",
+      onClick: () => navigate("/take-quiz/history"),
+    },
+    {
+      key: "/view-attempts/something",
+      icon: <AppstoreOutlined />,
+      label: "Take Quiz",
+      onClick: () => navigate("/take-quiz/attempt"),
+    },
+    {
+      key: "logout",
+      icon: <AppstoreOutlined />,
+      label: "Logout",
+      onClick: () => navigate("/take-quiz/attempt"),
+    },
+  ];
+
   return (
     <div className="shadow-xl">
       <div className="w-full max-w-7xl mx-auto">
         <Menu
           className={clsx(className, "max-w-7xl")}
           mode="horizontal"
-          defaultSelectedKeys={["231"]}
-          items={items}
+          selectedKeys={[location.pathname]}
+          items={general_user_options}
         />
       </div>
     </div>

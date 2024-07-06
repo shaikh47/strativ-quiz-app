@@ -1,8 +1,11 @@
 import { Spinner } from "../components/elements";
 import { MainLayout } from "../components/layout";
 import { Suspense } from "react";
-import { Outlet, type RouteObject } from "react-router-dom";
+import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 import { namedLazyImport } from "../utils/named-lazy-import";
+import RedirectComponent from "./redirect";
+import { useSelector } from "react-redux";
+import { type RootStateType } from "../store/rootStore";
 
 const { QuizPageRoutes } = namedLazyImport(
   async () => import("../features/general-user/routes/index"),
@@ -10,6 +13,11 @@ const { QuizPageRoutes } = namedLazyImport(
 );
 
 const App = () => {
+  const user = useSelector((store: RootStateType) => store.auth.user);
+  const isAuthenticated = useSelector(
+    (store: RootStateType) => store.auth.isAuthenticated
+  );
+
   return (
     <MainLayout>
       <Suspense
@@ -21,6 +29,7 @@ const App = () => {
       >
         <Outlet />
       </Suspense>
+      <RedirectComponent user={user} isAuthenticated={isAuthenticated}/>
     </MainLayout>
   );
 };

@@ -15,7 +15,7 @@ const QuestionCount = ({
   questionCount,
   onTileClick,
 }: QuestionCountProps) => {
-  const [markedQuestions, setMarkedQuestions] = useState([2]);
+  const [markedQuestions, setMarkedQuestions] = useState([-1]);
   const questionTiles = Array.from({ length: questionCount });
 
   const insertMarkedQuestion = (questionNumber: number) => {
