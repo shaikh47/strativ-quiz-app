@@ -1,6 +1,7 @@
 import { TextInput } from "../../../components/elements";
 import { type ChangeEvent, useState } from "react";
 import { message } from "antd";
+import TextArea from "antd/es/input/TextArea";
 
 export type DescriptiveAnswerPanelProps = {
   onTypingEnd: (typedAnswer: string) => void;
@@ -11,7 +12,7 @@ let saveTimeout: number;
 
 const DescriptiveAnswerPanel = ({
   onTypingEnd,
-  value
+  value,
 }: DescriptiveAnswerPanelProps) => {
   const [typedAns, setTypedAns] = useState(value);
 
@@ -32,8 +33,15 @@ const DescriptiveAnswerPanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="font-medium text-xs">Write your answers here. It will be autosaved.</p>
-      <TextInput onChange={onChange} value={typedAns} />
+      <p className="font-medium text-xs">
+        Write your answers here. It will be autosaved.
+      </p>
+      <TextArea
+        placeholder="Answer.."
+        autoSize
+        value={typedAns}
+        onChange={onChange}
+      />
     </div>
   );
 };

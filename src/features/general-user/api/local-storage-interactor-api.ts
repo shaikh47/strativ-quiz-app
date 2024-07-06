@@ -31,44 +31,35 @@ export const saveUserResponse = (response: UserResponseType) => {
 };
 
 export const updateUserResponse = (
-  response: UserResponseType,
-  entryIndex: number,
-  updatedAnswer: {
-    attemptedAnswer: string;
-    optionNumber: number;
-  }
+  newResp: UserResponseType,
+  responseIndex: number
 ) => {
-  // Check if the entryIndex is valid
-  if (entryIndex < 0 || entryIndex >= response.quiz.length) {
-    throw new Error("Invalid entry index");
-  }
+  const userResponses = JSON.parse(
+    localStorage.getItem(save_response_key) || "[]"
+  );
 
-  const quizEntry = response.quiz[entryIndex];
+  const prevResp: UserResponseType = userResponses[responseIndex];
+  const newPayload: UserResponseType = JSON.parse(JSON.stringify(prevResp));
 
-  let newAttemptedAnswer = quizEntry.answer.attemptedAnswers;
+  for (let i = 0; i < prevResp.quiz.length; i++) {
+    // Check the last element of attempted answer for both previous and new response
+    const prevLastAnswer =
+      prevResp.quiz[i].answer.attemptedAnswers.slice(-1)[0];
+    const newLastAnswer = newResp.quiz[i].answer.attemptedAnswers.slice(-1)[0];
 
-  if (quizEntry.answer.isMultichoice) {
-    if (!newAttemptedAnswer.includes(updatedAnswer.attemptedAnswer)) {
-      newAttemptedAnswer = [
-        ...newAttemptedAnswer,
-        updatedAnswer.attemptedAnswer,
-      ];
+    if (prevLastAnswer !== newLastAnswer) {
+      const optionIndex =
+        newPayload.quiz[i].answer.givenOptions.indexOf(newLastAnswer) + 1;
+
+      newPayload.quiz[i].answer.optionNumber = optionIndex;
+      newPayload.quiz[i].answer.isAnswered = true;
+      newPayload.quiz[i].answer.attemptedAnswers.push(newLastAnswer);
     }
-  } else {
-    newAttemptedAnswer = [updatedAnswer.attemptedAnswer];
   }
 
-  response.quiz[entryIndex] = {
-    ...quizEntry,
-    answer: {
-      ...quizEntry.answer,
-      isAnswered: true,
-      attemptedAnswers: newAttemptedAnswer,
-      optionNumber: updatedAnswer.optionNumber,
-    },
-  };
-
-  return response;
+  console.log("this is the updated payload: ", newPayload);
+  userResponses[responseIndex] = newPayload;
+  localStorage.setItem(save_response_key, JSON.stringify(userResponses));
 };
 
 // getters

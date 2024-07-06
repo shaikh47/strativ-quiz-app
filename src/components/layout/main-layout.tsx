@@ -10,6 +10,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { LuUsers } from "react-icons/lu";
 import { PiExamLight } from "react-icons/pi";
 import { MdOutlineHistoryToggleOff } from "react-icons/md";
+import { clearProgressState } from "../../store/quizProgress/quizProgressSlice";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -20,7 +21,7 @@ type NavbarPropsType = {
 const Navbar = ({ className = "" }: NavbarPropsType) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const user = useSelector((store: RootStateType) => store.auth.user);
 
   const general_user_options: MenuItem[] = [
@@ -28,20 +29,26 @@ const Navbar = ({ className = "" }: NavbarPropsType) => {
       key: "/take-quiz/history",
       icon: <MdOutlineHistoryToggleOff />,
       label: "History",
-      onClick: () => navigate("/take-quiz/history"),
+      onClick: () => {
+        dispatch(clearProgressState());
+        navigate("/take-quiz/history");
+      },
     },
     {
       key: "/take-quiz/attempt",
       icon: <PiExamLight />,
       label: "Take Quiz",
-      onClick: () => navigate("/take-quiz/attempt"),
+      onClick: () => {
+        dispatch(clearProgressState());
+        navigate("/take-quiz/attempt");
+      },
     },
     {
       key: "logout",
       icon: <IoIosLogOut />,
-      className: '!ml-auto',
+      className: "!ml-auto",
       label: "Logout",
-      onClick: () => dispath(logout()),
+      onClick: () => dispatch(logout()),
     },
   ];
 
@@ -61,9 +68,9 @@ const Navbar = ({ className = "" }: NavbarPropsType) => {
     {
       key: "logout",
       icon: <IoIosLogOut />,
-      className: '!ml-auto',
+      className: "!ml-auto",
       label: "Logout",
-      onClick: () => dispath(logout()),
+      onClick: () => dispatch(logout()),
     },
   ];
 
@@ -74,7 +81,9 @@ const Navbar = ({ className = "" }: NavbarPropsType) => {
           className={clsx(className, "max-w-7xl")}
           mode="horizontal"
           selectedKeys={[location.pathname]}
-          items={user?.role === 'user' ? general_user_options : admin_user_options}
+          items={
+            user?.role === "user" ? general_user_options : admin_user_options
+          }
         />
       </div>
     </div>

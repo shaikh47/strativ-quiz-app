@@ -4,7 +4,9 @@ import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { type RootStateType } from "../../../store/rootStore";
-import { increment, login } from "../../../store/authentication/authSlice";
+import { login } from "../../../store/authentication/authSlice";
+import { getHash } from "../../../utils/crypto";
+import { EmailSchema } from "../../../domains/models/user";
 
 type LoginProps = {
   loginClick: () => void;
@@ -19,8 +21,6 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
   const dispatch = useDispatch();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [loginStatus, setLoginStatus] = useState<string>("loggedout");
-
-  const counter = useSelector((store: RootStateType) => store.auth.counter);
   const isAuthenticated = useSelector(
     (store: RootStateType) => store.auth.isAuthenticated
   );
@@ -31,7 +31,7 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
   const onFinish = async (values: FormValues) => {
     try {
       dispatch(
-        login({ email: values.email.trim(), password: values.password.trim() })
+        login({ email: values.email.trim(), password: getHash(values.password.trim()) })
       );
     } catch (err) {
       message.error("Could not Login");
@@ -44,10 +44,6 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
 
   const toggleVisibility = () => {
     setPasswordVisible(!passwordVisible);
-  };
-
-  const onFormChange = () => {
-    setLoginStatus("loggedout");
   };
 
   if (isAuthenticated === true) {
@@ -63,17 +59,6 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
         <p className="text-center mb-5 text-xl font-medium text-[#282860] opacity-90">
           Login to answer questions
         </p>
-
-        <button
-          className="hidden"
-          onClick={() => {
-            console.log("Clicked");
-            dispatch(increment(1));
-          }}
-        >
-          Increment {counter}
-        </button>
-
         <Form
           name="basic"
           initialValues={{
@@ -81,7 +66,6 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
-          onChange={onFormChange}
           autoComplete="off"
           className="flex flex-col gap-3"
         >
@@ -93,6 +77,12 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
               {
                 required: true,
                 message: "Please input your email!",
+              },
+              {
+                validator: (_, value) =>
+                  EmailSchema.safeParse(value).success
+                    ? Promise.resolve()
+                    : Promise.reject(new Error("Invalid Email format!")),
               },
             ]}
           >

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadState } from "../../utils/browser-storage";
 import { type User } from "../../types/auth";
+import { compareHash } from "../../utils/crypto";
 
 type AuthState = {
   isAuthenticated: boolean;
@@ -13,24 +14,24 @@ const mockUsers: User[] = [
   {
     username: 'shaikhadmin',
     email: 'omarshaikh4777@gmail.com',
-    password: 'bjit1234', // This should be hashed in a real application
+    password: 'bde9ce4929e0ea510f5e6dca398ac89f91dfe1ef715f77b223839eadb9269fda', // This should be hashed in a real application
     role: 'admin',
   },
   {
     username: 'shaikh',
     email: 'omarshaikh47@gmail.com',
-    password: 'bjit1234', // This should be hashed in a real application
+    password: 'bde9ce4929e0ea510f5e6dca398ac89f91dfe1ef715f77b223839eadb9269fda', // This should be hashed in a real application
     role: 'user',
   },
   {
     username: 'shaikh-school',
     email: 'syed15-8699@diu.edu.bd',
-    password: 'bjit1234', // This should be hashed in a real application
+    password: 'bde9ce4929e0ea510f5e6dca398ac89f91dfe1ef715f77b223839eadb9269fda', // This should be hashed in a real application
     role: 'user',
   },
 ];
 
-const localstoragestate = loadState<AuthState>("app-key");
+const localstoragestate = loadState<AuthState>("app-key-users");
 
 const initialState: AuthState = localstoragestate || {
   isAuthenticated: false,
@@ -48,7 +49,8 @@ const authSlice = createSlice({
     },
     login: (state, action: PayloadAction<{ email: string; password: string }>) => {
       const { email, password } = action.payload;
-      const user = state.users.find((user) => user.email === email && user.password === password);
+      const user = state.users.find((user) => user.email === email && compareHash(user.password, password));
+
       if (user) {
         state.isAuthenticated = true;
         state.user = user;

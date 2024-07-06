@@ -8,9 +8,8 @@ const localStorageMiddleware =
   (storeAPI: any) => (next: any) => (action: any) => {
     const result = next(action);
     const state = storeAPI.getState();
-    // console.log(action.type);
     if (action.type.startsWith("authentication/")) {
-      saveState(state.auth, "app-key").catch((e) =>
+      saveState(state.auth, "app-key-users").catch((e) =>
         console.log(e, "Error saving the state")
       );
     }

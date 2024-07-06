@@ -23,7 +23,7 @@ const answerInitialState: AnsweredStateType[] = getQuiz().map((question) => {
     answer: {
       isAnswered: false,
       attemptedAnswers: [""],
-      givenOptions: [""],
+      givenOptions: question.answer.options,
       optionNumber: -1,
       isMultichoice: false,
     },
@@ -41,6 +41,13 @@ const quizProgress = createSlice({
   reducers: {
     setLastAttemptDate(state, action: PayloadAction<string>) {
       state.lastAttemptDate = action.payload;
+    },
+    loadProgressState(state, action: PayloadAction<AnsweredStateType[]>) {
+      console.log("loadState payload:", action.payload);
+      state.quizProgress = action.payload;
+    },
+    clearProgressState(state) {
+      state.quizProgress = answerInitialState;
     },
     saveAnswer(
       state,
@@ -70,5 +77,5 @@ const quizProgress = createSlice({
   },
 });
 
-export const { setLastAttemptDate, saveAnswer } = quizProgress.actions;
+export const { setLastAttemptDate, saveAnswer, loadProgressState, clearProgressState } = quizProgress.actions;
 export default quizProgress.reducer;

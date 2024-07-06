@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { type UserResponseType } from "../api/local-storage-interactor-api";
 import Avatar from "antd/es/avatar/avatar";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { clearProgressState } from "../../../store/quizProgress/quizProgressSlice";
 
 export type AttemptedQuizViewCardProps = {
   attemptedQuizzes: UserResponseType[];
@@ -13,6 +15,7 @@ const AttemptedQuizViewCards = ({
   attemptedQuizzes,
 }: AttemptedQuizViewCardProps) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <div className="grid grid-cols-4 gap-4 sp:grid-cols-1">
@@ -25,6 +28,7 @@ const AttemptedQuizViewCards = ({
               )}
               key={index}
               onClick={() => {
+                dispatch(clearProgressState());
                 navigate(`/take-quiz/history/${index}`);
               }}
             >

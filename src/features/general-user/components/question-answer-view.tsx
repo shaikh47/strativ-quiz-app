@@ -7,6 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveAnswer } from "../../../store/quizProgress/quizProgressSlice";
 import { type RootStateType } from "../../../store/rootStore";
 import { getQuiz } from "../api/local-storage-interactor-api";
+import { useParams } from "react-router-dom";
+import { getUserResponses } from "../api/local-storage-interactor-api";
+import Modal from "antd/es/modal/Modal";
+import { useState } from "react";
 
 const buttonStyle =
   "bg-orange-300 px-4 py-2 rounded-lg flex gap-3 items-center justify-center hover:bg-orange-400";
@@ -48,8 +52,15 @@ const AnswerPanel = ({
   const progress = useSelector(
     (store: RootStateType) => store.quizProgress.quizProgress
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log("this studentAnswer: ", studentAnswer);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
 
   const onOptionClick = (optionNumber: number, option: string) => {
     dispatch(
@@ -77,23 +88,56 @@ const AnswerPanel = ({
   };
 
   return (
-    <div className="p-5 shadow-2xl grid gap-4 h-full min-h-64">
-      {givenAnswer.answer.isMultichoice ? (
-        <MultichoiceAnswerPanel
-          options={givenAnswer.answer.options}
-          onOptionClick={onOptionClick}
-          selectedOption={progress[selectedQuestionNumber].answer.optionNumber}
-        />
-      ) : (
-        <DescriptiveAnswerPanel
-          value={
-            progress[selectedQuestionNumber].answer.attemptedAnswers.slice(
-              -1
-            )[0]
-          }
-          onTypingEnd={onTypingEnd}
-        />
+    <div className="h-full p-5 shadow-2xl">
+      {progress[selectedQuestionNumber].answer.attemptedAnswers.length > 1 && (
+        <>
+          <div
+            className="text-right text-sm cursor-pointer"
+            onClick={showModal}
+          >
+            View Past Answer
+          </div>
+          <Modal
+            title="This is the past History of the users Attempted Answer for this Question: "
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleOk}
+            onClose={handleOk}
+          >
+            {progress[selectedQuestionNumber].answer.attemptedAnswers.map(
+              (pastanswer, index) => {
+                return (
+                  <div className="flex gap-1" key={index}>
+                    <div>{`${index+1}. `}</div>
+                    <div className="font-medium">{pastanswer}</div>
+                  </div>
+                );
+              }
+            )}
+          </Modal>
+        </>
       )}
+
+      <div className="grid gap-4 h-full min-h-64">
+        {givenAnswer.answer.isMultichoice ? (
+          <MultichoiceAnswerPanel
+            options={givenAnswer.answer.options}
+            onOptionClick={onOptionClick}
+            selectedOption={
+              progress[selectedQuestionNumber].answer.optionNumber
+            }
+          />
+        ) : (
+          <DescriptiveAnswerPanel
+            value={
+              progress[selectedQuestionNumber].answer.attemptedAnswers.slice(
+                -1
+              )[0]
+            }
+            onTypingEnd={onTypingEnd}
+          />
+        )}
+      </div>
     </div>
   );
 };

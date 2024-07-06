@@ -2,25 +2,43 @@ import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { Form, Input } from "antd";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
+import { signup } from "../../../store/authentication/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getHash } from "../../../utils/crypto";
+import { type RootStateType } from "../../../store/rootStore";
+import { EmailSchema } from "../../../domains/models/user";
+import { message } from "antd";
 
-interface SignUpProps {
+type SignUpProps = {
   loginClick: () => void;
-}
+};
 
-interface FormValues {
+type FormValues = {
   email: string;
   firstname: string;
   lastname: string;
   password: string;
-}
+};
 
 const SignUp: React.FC<SignUpProps> = ({ loginClick }) => {
+  const dispatch = useDispatch();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [loginStatus, setLoginStatus] = useState<string>("loggedout");
+  const isAuthenticated = useSelector(
+    (store: RootStateType) => store.auth.isAuthenticated
+  );
+  const authenticatedUser = useSelector(
+    (store: RootStateType) => store.auth.user
+  );
 
   const onFinish = async (values: FormValues) => {
-    console.log("input: ", values);
-    // Handle sign up logic here
+    dispatch(
+      signup({
+        email: values.email.trim(),
+        username: `${values.firstname}-${values.lastname}`,
+        password: getHash(values.password.trim()),
+      })
+    );
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -35,8 +53,12 @@ const SignUp: React.FC<SignUpProps> = ({ loginClick }) => {
     setLoginStatus("loggedout");
   };
 
-  if (loginStatus === "loggedin") {
-    return <Navigate replace to="/contact" />;
+  if (isAuthenticated === true) {
+    if (authenticatedUser?.role === "user")
+      return <Navigate replace to="/take-quiz/history" />;
+    else if (authenticatedUser?.role === "admin")
+      return <Navigate replace to="/admin/view-user-responses" />;
+    else <Navigate replace to="/auth" />;
   } else {
     return (
       <div className="flex flex-col items-center justify-center gap-5 rounded-lg shadow-2xl p-16">
@@ -63,6 +85,12 @@ const SignUp: React.FC<SignUpProps> = ({ loginClick }) => {
               {
                 required: true,
                 message: "Please input your email!",
+              },
+              {
+                validator: (_, value) =>
+                  EmailSchema.safeParse(value).success
+                    ? Promise.resolve()
+                    : Promise.reject(new Error("Invalid Email format!")),
               },
             ]}
           >
@@ -133,9 +161,9 @@ const SignUp: React.FC<SignUpProps> = ({ loginClick }) => {
               }
             />
           </Form.Item>
-          {loginStatus === "loginerror" && (
-            <p className="text-red-500">{'response'}</p>
-          )}
+          {/* {loginStatus === "loginerror" && (
+            <p className="text-red-500">{"response"}</p>
+          )} */}
           <button className="signup-button w-full rounded-lg bg-[#720455] py-1 text-md font-semibold leading-7 text-white hover:bg-[#3c0753]">
             Create Account
           </button>

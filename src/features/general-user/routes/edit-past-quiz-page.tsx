@@ -4,22 +4,32 @@ import QuestionAnswerView from "../components/question-answer-view";
 import QuestionCount from "../components/question-count";
 import { useSelector } from "react-redux";
 import { type RootStateType } from "../../../store/rootStore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getCurrentDateTime } from "../../../utils/date";
-import {
-  saveUserResponse,
-  type UserResponseType,
-} from "../api/local-storage-interactor-api";
+import { type UserResponseType, updateUserResponse } from "../api/local-storage-interactor-api";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserResponses } from "../api/local-storage-interactor-api";
+import { useDispatch } from "react-redux";
+import {
+  loadProgressState,
+  clearProgressState,
+} from "../../../store/quizProgress/quizProgressSlice";
 
 export const EditPastQuizPage = () => {
   const navigate = useNavigate();
-  const { responseId } = useParams<{ responseId: string }>();
-  const attemptedResponse: UserResponseType =
-    getUserResponses()[parseInt(responseId!)];
+  const dispatch = useDispatch();
 
-  console.log("attempted respo: ", attemptedResponse.quiz);
+  const attemptedResponse = useSelector(
+    (state: RootStateType) => state.quizProgress.quizProgress
+  );
+  const { responseId } = useParams<{ responseId: string }>();
+
+  useEffect(() => {
+    if (responseId) {
+      const loadedAttempt = getUserResponses()[parseInt(responseId)];
+      dispatch(loadProgressState(loadedAttempt.quiz));
+    }
+  }, [responseId, dispatch]);
 
   const [selectedQuestionNumber, setSelectedQuestionNumber] = useState(0);
   const currentUser = useSelector((state: RootStateType) => state.auth.user);
@@ -29,7 +39,7 @@ export const EditPastQuizPage = () => {
   };
 
   const handleNextClick = () => {
-    if (selectedQuestionNumber < attemptedResponse.quiz.length - 1) {
+    if (selectedQuestionNumber < attemptedResponse.length - 1) {
       setSelectedQuestionNumber(selectedQuestionNumber + 1);
     }
   };
@@ -44,14 +54,16 @@ export const EditPastQuizPage = () => {
     const userResponse: UserResponseType = {
       userEmail: currentUser?.email!,
       attemptTime: getCurrentDateTime(),
-      quiz: attemptedResponse.quiz,
+      quiz: attemptedResponse,
     };
-    // saveUserResponse(userResponse);
+    
+    updateUserResponse(userResponse, parseInt(responseId!));
+    dispatch(clearProgressState());
     navigate("/take-quiz/history");
   };
 
   const getAnsweredQuestions = (): number[] => {
-    return attemptedResponse.quiz
+    return attemptedResponse
       .map((item, index) => (item.answer.isAnswered ? index + 1 : null))
       .filter((index) => index !== null);
   };
@@ -66,7 +78,7 @@ export const EditPastQuizPage = () => {
         <QuestionAnswerView
           isPastQuiz={false}
           selectedQuestionNumber={selectedQuestionNumber}
-          selectedQuestion={attemptedResponse.quiz[selectedQuestionNumber]}
+          selectedQuestion={attemptedResponse[selectedQuestionNumber]}
           nextClick={handleNextClick}
           prevClick={handlePreviousClick}
         />
@@ -74,7 +86,7 @@ export const EditPastQuizPage = () => {
           <QuestionCount
             currentQuestionNumber={selectedQuestionNumber + 1}
             answeredQuestions={getAnsweredQuestions()}
-            questionCount={attemptedResponse.quiz.length}
+            questionCount={attemptedResponse.length}
             onTileClick={onTileClick}
           />
           <button

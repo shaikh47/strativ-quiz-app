@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { ContentLayout } from "../../../components/layout";
 import QuestionAnswerView from "../components/question-answer-view";
 import QuestionCount from "../components/question-count";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { type RootStateType } from "../../../store/rootStore";
 import { useState } from "react";
 import { getCurrentDateTime } from "../../../utils/date";
@@ -11,9 +11,12 @@ import {
   type UserResponseType,
 } from "../api/local-storage-interactor-api";
 import { useNavigate } from "react-router-dom";
+import { clearProgressState } from "../../../store/quizProgress/quizProgressSlice";
 
 export const QuizPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   const [selectedQuestionNumber, setSelectedQuestionNumber] = useState(0);
   const quizProgress = useSelector(
     (state: RootStateType) => state.quizProgress.quizProgress
@@ -43,6 +46,7 @@ export const QuizPage = () => {
       quiz: quizProgress,
     };
     saveUserResponse(userResponse);
+    dispatch(clearProgressState());
     navigate('/take-quiz/history');
   };
 
