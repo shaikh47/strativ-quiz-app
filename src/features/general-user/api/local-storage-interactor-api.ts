@@ -48,7 +48,7 @@ export const getUsers = (): any => {
   return JSON.parse(localStorage.getItem("users") || "[]");
 };
 
-export const getQuiz = (): UserResponseType[] => {
+export const getQuiz = (): QuestionStructureType[] => {
   return JSON.parse(localStorage.getItem(save_question_admin_key) || "[]");
 };
 

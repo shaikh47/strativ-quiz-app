@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // import mockQuizQuestions from "../mock-ques";
 import { type AnswerType } from "../../types";
 import { message } from "antd";
+import { getQuiz } from "../../features/general-user/api/local-storage-interactor-api";
 
 export type QuestionStructureType = {
   question: string;
@@ -29,7 +30,8 @@ const default_initial_question_structure: QuestionStructureType = {
 };
 
 const initialState: QuizProgressState = {
-  questions: [default_initial_question_structure],
+  questions:
+    getQuiz().length === 0 ? [default_initial_question_structure] : getQuiz(),
   date: "",
 };
 
@@ -42,7 +44,10 @@ const addQuestionSlice = createSlice({
     },
     editQuestion: (
       state,
-      action: PayloadAction<{ index: number; updatedQuestion: QuestionStructureType }>
+      action: PayloadAction<{
+        index: number;
+        updatedQuestion: QuestionStructureType;
+      }>
     ) => {
       const { index, updatedQuestion } = action.payload;
       if (state.questions[index]) {
