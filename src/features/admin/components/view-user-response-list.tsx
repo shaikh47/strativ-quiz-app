@@ -20,7 +20,7 @@ const ViewUserResponseList = ({}: ViewUserResponseListProps) => {
           return (
             <Card
               className={clsx(
-                "h-44 w-full cursor-pointer px-5 py-4 flex flex-col gap-6 border-2"
+                "h-44 w-full cursor-pointer px-5 py-4 flex flex-col gap-6 border border-customBorder"
               )}
               key={index}
               onClick={() => {

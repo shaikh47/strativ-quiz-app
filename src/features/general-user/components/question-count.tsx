@@ -42,7 +42,7 @@ const QuestionCount = ({
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full h-min shadow-2xl p-6 rounded-md">
+    <div className="flex flex-col gap-6 w-full h-min border-customBorder border rounded-lg p-6 bg-white">
       <p>Question {`${currentQuestionNumber}/${questionCount}`}</p>
       <div className="flex flex-wrap gap-3">
         {questionTiles.map((_, index) => {

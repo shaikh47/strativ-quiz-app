@@ -82,7 +82,7 @@ const ManageQuestions = ({}: ManageQuestionsProps) => {
         <div className="flex justify-between items-center">
           <button
             onClick={handleQuestionSave}
-            className="bg-green-400 px-4 py-2 rounded-lg flex gap-3 items-center justify-center hover:bg-orange-400"
+            className="bg-green-500 px-4 py-2 rounded-lg flex gap-3 items-center justify-center hover:bg-green-600"
           >
             Save Quiz Question
           </button>

@@ -1,7 +1,7 @@
-import { TextInput } from "../../../components/elements";
 import { type ChangeEvent, useState } from "react";
 import { message } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { useEffect } from "react";
 
 export type DescriptiveAnswerPanelProps = {
   onTypingEnd: (typedAnswer: string) => void;
@@ -15,6 +15,10 @@ const DescriptiveAnswerPanel = ({
   value,
 }: DescriptiveAnswerPanelProps) => {
   const [typedAns, setTypedAns] = useState(value);
+
+  useEffect(() => {
+    setTypedAns(value);
+  }, [value]);
 
   const autoSave = (typedAnswer: string) => {
     clearTimeout(saveTimeout);
@@ -38,7 +42,7 @@ const DescriptiveAnswerPanel = ({
       </p>
       <TextArea
         placeholder="Answer.."
-        autoSize
+        autoSize={{ minRows: 10 }}
         value={typedAns}
         onChange={onChange}
       />

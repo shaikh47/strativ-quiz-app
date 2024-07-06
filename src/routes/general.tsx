@@ -1,7 +1,7 @@
 import { Spinner } from "../components/elements";
 import { MainLayout } from "../components/layout";
 import { Suspense } from "react";
-import { Navigate, Outlet, type RouteObject } from "react-router-dom";
+import { Outlet, type RouteObject } from "react-router-dom";
 import { namedLazyImport } from "../utils/named-lazy-import";
 import RedirectComponent from "./redirect";
 import { useSelector } from "react-redux";

@@ -7,13 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveAnswer } from "../../../store/quizProgress/quizProgressSlice";
 import { type RootStateType } from "../../../store/rootStore";
 import { getQuiz } from "../api/local-storage-interactor-api";
-import { useParams } from "react-router-dom";
-import { getUserResponses } from "../api/local-storage-interactor-api";
 import Modal from "antd/es/modal/Modal";
 import { useState } from "react";
 
 const buttonStyle =
-  "bg-orange-300 px-4 py-2 rounded-lg flex gap-3 items-center justify-center hover:bg-orange-400";
+  "bg-[#5F6CE1] text-white px-4 py-2 rounded-lg flex gap-3 items-center justify-center hover:bg-[#5561CA]";
 
 export type QuestionAnswerViewProps = {
   selectedQuestionNumber: number;
@@ -28,7 +26,7 @@ const QuestionPanel = ({
   selectedQuestionNumber,
 }: Omit<QuestionAnswerViewProps, "nextClick" | "prevClick" | "isPastQuiz">) => {
   return (
-    <div className="p-5 shadow-2xl grid gap-4">
+    <div className="p-5 border-customBorder border rounded-lg grid gap-4 bg-white">
       <p>{`Question ${selectedQuestionNumber + 1}`}</p>
       <b>{selectedQuestion.question}</b>
     </div>
@@ -36,16 +34,12 @@ const QuestionPanel = ({
 };
 
 type AnswerPanelPropsType = {
-  studentAnswer: any;
   givenAnswer: any;
   selectedQuestionNumber: number;
-  isPastQuiz: boolean;
 };
 
 const AnswerPanel = ({
-  studentAnswer,
   givenAnswer,
-  isPastQuiz,
   selectedQuestionNumber,
 }: AnswerPanelPropsType) => {
   const dispatch = useDispatch();
@@ -88,14 +82,16 @@ const AnswerPanel = ({
   };
 
   return (
-    <div className="h-full p-5 shadow-2xl">
+    <div className="h-full p-5 border-customBorder border rounded-lg bg-white">
       {progress[selectedQuestionNumber].answer.attemptedAnswers.length > 1 && (
         <>
           <div
-            className="text-right text-sm cursor-pointer"
+            className="flex items-center justify-end text-sm cursor-pointer"
             onClick={showModal}
           >
-            View Past Answer
+            <p className="border-black border border-1 rounded-md px-2">
+              View Past Answer
+            </p>
           </div>
           <Modal
             title="This is the past History of the users Attempted Answer for this Question: "
@@ -108,7 +104,7 @@ const AnswerPanel = ({
               (pastanswer, index) => {
                 return (
                   <div className="flex gap-1" key={index}>
-                    <div>{`${index+1}. `}</div>
+                    <div>{`${index + 1}. `}</div>
                     <div className="font-medium">{pastanswer}</div>
                   </div>
                 );
@@ -145,7 +141,6 @@ const AnswerPanel = ({
 const QuestionAnswerView = ({
   selectedQuestion,
   selectedQuestionNumber,
-  isPastQuiz,
   nextClick,
   prevClick,
 }: QuestionAnswerViewProps) => {
@@ -156,8 +151,6 @@ const QuestionAnswerView = ({
         selectedQuestionNumber={selectedQuestionNumber}
       />
       <AnswerPanel
-        isPastQuiz={isPastQuiz}
-        studentAnswer={selectedQuestion.answer.attemptedAnswers}
         givenAnswer={getQuiz()[selectedQuestionNumber]}
         selectedQuestionNumber={selectedQuestionNumber}
       />

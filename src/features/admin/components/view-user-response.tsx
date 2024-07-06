@@ -1,6 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
 import { ContentLayout } from "../../../components/layout";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getUserResponses } from "../../general-user/api/local-storage-interactor-api";
 import QuestionViewPanel from "./question-view-panel";
 import { type AnsweredStateType } from "../../../store/quizProgress/quizProgressSlice";
@@ -8,8 +7,6 @@ import { type AnsweredStateType } from "../../../store/quizProgress/quizProgress
 export type ViewUserAttemptedResponseProps = {};
 
 const ViewUserAttemptedResponse = ({}: ViewUserAttemptedResponseProps) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { responseId } = useParams<{ responseId: string }>();
   
   const questions = getUserResponses();

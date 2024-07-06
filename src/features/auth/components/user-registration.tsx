@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getHash } from "../../../utils/crypto";
 import { type RootStateType } from "../../../store/rootStore";
 import { EmailSchema } from "../../../domains/models/user";
-import { message } from "antd";
 
 type SignUpProps = {
   loginClick: () => void;

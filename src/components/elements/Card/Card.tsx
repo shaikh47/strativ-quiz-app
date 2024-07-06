@@ -16,7 +16,7 @@ export const Card = ({
     <div
       className={clsx(
         "w-full rounded-3xl bg-white",
-        onClick && "cursor-pointer hover:opacity-80 active:bg-orange-200",
+        onClick && "cursor-pointer hover:shadow-lg active:bg-slate-200",
         className
       )}
       onClick={onClick}

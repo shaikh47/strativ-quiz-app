@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { type AnswerType, type QuestionType } from "../../../types";
 import { CiSquarePlus } from "react-icons/ci";
 import { ImCross } from "react-icons/im";
-import { Input, message } from "antd";
+import { Input } from "antd";
 const { TextArea } = Input;
 import {
   Checkbox,
@@ -20,13 +20,6 @@ export type QuestionEditPanelProps = {
   questionProp: QuestionType;
   answerProp: AnswerType;
   questionIndex: number;
-};
-
-const default_anwer_structure: AnswerType = {
-  options: [""],
-  isMultichoice: false,
-  weight: -1,
-  optionNumber: -1,
 };
 
 const QuestionEditPanel = ({
@@ -89,26 +82,8 @@ const QuestionEditPanel = ({
     dispatch(removeQuestion(questionIndex));
   };
 
-  const onSubmit = () => {
-    if (questionText.trim() === "") {
-      message.error("Question cannot be empty.");
-      return;
-    }
-
-    if (answer.options.some((option) => option.trim() === "")) {
-      message.error("Options cannot be empty.");
-      return;
-    }
-
-    console.log("This is the saveable question: ", {
-      answer: answer,
-      question: questionText,
-    });
-    message.success("Question submitted successfully.");
-  };
-
   return (
-    <div className="border-2 rounded-xl p-4">
+    <div className="border-customBorder border bg-white rounded-xl p-4">
       <div className="grid gap-3">
         <div className="">
           <ImCross
@@ -129,7 +104,7 @@ const QuestionEditPanel = ({
               {questionText}
             </TextArea>
           </div>
-          <Checkbox onChange={onMultiCheck}>Multiple Choice</Checkbox>
+          <Checkbox onChange={onMultiCheck} checked={answer.isMultichoice}>Multiple Choice</Checkbox>
         </div>
         {answer.isMultichoice && (
           <div className="grid gap-3">

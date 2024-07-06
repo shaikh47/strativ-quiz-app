@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        customBorder: 'rgba(40, 40, 96, 0.15)',
+      },
       screens: {
         sp: { min: "0px", max: "639px" },
         tablet: { min: "640px", max: "1279px" },

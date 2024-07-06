@@ -20,7 +20,6 @@ type FormValues = {
 const Login: React.FC<LoginProps> = ({ loginClick }) => {
   const dispatch = useDispatch();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-  const [loginStatus, setLoginStatus] = useState<string>("loggedout");
   const isAuthenticated = useSelector(
     (store: RootStateType) => store.auth.isAuthenticated
   );
@@ -70,7 +69,6 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
           className="flex flex-col gap-3"
         >
           <Form.Item
-            validateStatus={loginStatus === "loginerror" ? "error" : ""}
             className="m-0"
             name="email"
             rules={[
@@ -87,14 +85,12 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
             ]}
           >
             <Input
-              status={loginStatus === "loginerror" ? "error" : ""}
               className="input "
               placeholder="Email address"
             />
           </Form.Item>
 
           <Form.Item
-            validateStatus={loginStatus === "loginerror" ? "error" : ""}
             className="m-0"
             name="password"
             rules={[
@@ -105,7 +101,6 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
             ]}
           >
             <Input.Password
-              status={loginStatus === "loginerror" ? "error" : ""}
               className=""
               placeholder="Password"
               iconRender={(visible) =>
