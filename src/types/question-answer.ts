@@ -1,6 +1,7 @@
 export type QuestionType = string;
 export type AnswerType = {
-    answerType: 'multichoice' | 'descriptive',
-    answer: string,
-    optionNumber?: number
+    options: string[];
+    weight: number;
+    optionNumber: number;
+    isMultichoice: boolean;
 }

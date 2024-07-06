@@ -22,6 +22,12 @@ const mockUsers: User[] = [
     password: 'bjit1234', // This should be hashed in a real application
     role: 'user',
   },
+  {
+    username: 'shaikh-school',
+    email: 'syed15-8699@diu.edu.bd',
+    password: 'bjit1234', // This should be hashed in a real application
+    role: 'user',
+  },
 ];
 
 const localstoragestate = loadState<AuthState>("app-key");

@@ -13,3 +13,37 @@ const QuestionAnswerView = ({}: QuestionAnswerViewProps) => {
 }
 
 export default QuestionAnswerView;
+
+
+
+reset the redux state after quiz is submitted
+
+dispatch(addQuestion({
+  question: "What is the capital of France?",
+  answer: {
+    options: ["Paris", "London", "Berlin", "Madrid"],
+    weight: 1,
+    optionNumber: 0,
+    isMultichoice: false,
+  },
+}));
+
+// Editing a question
+dispatch(editQuestion({
+  index: 0,  // index of the question to edit
+  updatedQuestion: {
+    question: "What is the capital of Germany?",
+    answer: {
+      options: ["Berlin", "Munich", "Hamburg", "Frankfurt"],
+      weight: 1,
+      optionNumber: 0,
+      isMultichoice: false,
+    },
+  },
+}));
+
+// Removing a question
+dispatch(removeQuestion(0));  // index of the question to remove
+
+// Updating the date
+dispatch(updateDate("2024-07-06"));

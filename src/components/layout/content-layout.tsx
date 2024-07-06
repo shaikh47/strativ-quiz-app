@@ -25,7 +25,7 @@ export const ContentLayout = ({
         )}
         <div
           className={clsx(
-            "h-full overflow-auto bg-orange-100",
+            "h-full overflow-auto bg-slate-50",
             "px-16 py-10 sp:px-4 sp:py-2 tablet:px-8 tablet:py-5 laptop:px-12 laptop:py-10"
           )}
         >

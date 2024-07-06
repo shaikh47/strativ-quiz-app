@@ -53,9 +53,9 @@ const Login: React.FC<LoginProps> = ({ loginClick }) => {
   if (isAuthenticated === true) {
     // check the user role here
     if (authenticatedUser?.role === "user")
-      return <Navigate replace to="/take-quiz" />;
+      return <Navigate replace to="/take-quiz/history" />;
     else if (authenticatedUser?.role === "admin")
-      return <Navigate replace to="/manage-questions" />;
+      return <Navigate replace to="/admin/view-user-responses" />;
     else <Navigate replace to="/auth" />;
   } else {
     return (

@@ -33,7 +33,7 @@ const initialState: QuizProgressState = {
   lastAttemptDate: "",
 };
 
-const authSlice = createSlice({
+const quizProgress = createSlice({
   name: "quizprogress",
   initialState,
   reducers: {
@@ -66,5 +66,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setLastAttemptDate, saveAnswer } = authSlice.actions;
-export default authSlice.reducer;
+export const { setLastAttemptDate, saveAnswer } = quizProgress.actions;
+export default quizProgress.reducer;
