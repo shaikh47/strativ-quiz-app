@@ -3,10 +3,10 @@ import MultichoiceAnswerPanel from "./multichoice-answer";
 import { FaChevronRight } from "react-icons/fa6";
 import { FaChevronLeft } from "react-icons/fa6";
 import { type AnsweredStateType } from "../../../store/quizProgress/quizProgressSlice";
-import mockQuizQuestions from "../../../store/mock-ques";
 import { useDispatch, useSelector } from "react-redux";
 import { saveAnswer } from "../../../store/quizProgress/quizProgressSlice";
 import { type RootStateType } from "../../../store/rootStore";
+import { getQuiz } from "../api/local-storage-interactor-api";
 
 const buttonStyle =
   "bg-orange-300 px-4 py-2 rounded-lg flex gap-3 items-center justify-center hover:bg-orange-400";
@@ -103,7 +103,7 @@ const QuestionAnswerView = ({
       />
       <AnswerPanel
         studentAnswer={selectedQuestion.answer}
-        givenAnswer={mockQuizQuestions[selectedQuestionNumber]}
+        givenAnswer={getQuiz()[selectedQuestionNumber]}
         selectedQuestionNumber={selectedQuestionNumber}
       />
 

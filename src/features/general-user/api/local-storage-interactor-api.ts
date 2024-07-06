@@ -27,11 +27,6 @@ export const saveUser = (user: UserType) => {
 };
 
 export const saveQuizByAdmin = (quiz: QuestionStructureType[]) => {
-  // this is supposed to be saved by the admin
-  // const quizzes = JSON.parse(
-  //   localStorage.getItem(save_question_admin_key) || "[]"
-  // );
-  // quizzes.push(quiz);
   localStorage.setItem(save_question_admin_key, JSON.stringify(quiz));
 };
 
@@ -41,6 +36,10 @@ export const saveUserResponse = (response: UserResponseType) => {
   );
   userResponses.push(response);
   localStorage.setItem(save_response_key, JSON.stringify(userResponses));
+};
+
+export const updateUserResponse = (response: UserResponseType, entryIndex: number) => {
+
 };
 
 // getters

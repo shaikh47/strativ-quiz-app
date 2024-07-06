@@ -47,6 +47,7 @@ const ManageQuestions = ({}: ManageQuestionsProps) => {
       message.error("Please complete all of your questions and options.");
     } else {
       saveQuizByAdmin(questions);
+      message.success("Saved Quiz");
     }
   };
 

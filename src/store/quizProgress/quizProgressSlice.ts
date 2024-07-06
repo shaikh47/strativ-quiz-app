@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import mockQuizQuestions from "../mock-ques";
+import { getQuiz } from "../../features/general-user/api/local-storage-interactor-api";
 
 export type AnsweredStateType = {
   question: string;
@@ -16,7 +16,7 @@ type QuizProgressState = {
   lastAttemptDate: string;
 };
 
-const answerInitialState: AnsweredStateType[] = mockQuizQuestions.map((question) => {
+const answerInitialState: AnsweredStateType[] = getQuiz().map((question) => {
   return {
     question: question.question,
     answer: {
