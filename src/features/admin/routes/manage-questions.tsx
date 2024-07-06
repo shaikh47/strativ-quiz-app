@@ -6,25 +6,16 @@ import { type AnswerType } from "../../../types";
 import { ContentLayout } from "../../../components/layout";
 import { addQuestion } from "../../../store/addQuestion/addQuestionSlice";
 import { message } from "antd";
+import { type QuestionStructureType } from "../../../store/addQuestion/addQuestionSlice";
 
 export type ManageQuestionsProps = {};
 
 const default_answer_structure: AnswerType = {
   options: [""],
   isMultichoice: false,
-  weight: -1,
+  weight: 1,
   optionNumber: -1,
 };
-
-// dispatch(addQuestion({
-//   question: "What is the capital of France?",
-//   answer: {
-//     options: ["Paris", "London", "Berlin", "Madrid"],
-//     weight: 1,
-//     optionNumber: 0,
-//     isMultichoice: false,
-//   },
-// }));
 
 const ManageQuestions = ({}: ManageQuestionsProps) => {
   const dispatch = useDispatch();
@@ -32,8 +23,35 @@ const ManageQuestions = ({}: ManageQuestionsProps) => {
     (state: RootStateType) => state.addQuestion.questions
   );
 
+  const quizValidation = (questions: QuestionStructureType[]): boolean => {
+    for (const question of questions) {
+      if (question.question.trim() === "") {
+        return false;
+      }
+  
+      if(question.answer.isMultichoice) {
+        for (const option of question.answer.options) {
+          if (option.trim() === "") {
+            return false;
+          }
+        }
+      }
+    }
+  
+    return true;
+  };
+
+  const handleQuestionSave = () => {
+    console.log("this should be saved: ", questions, quizValidation(questions));
+    if (!quizValidation(questions)) {
+      message.error("Please complete all of your questions and options.");
+    } else {
+      saveQuizByAdmin(questions);
+    }
+  };
+
   const onAddQuestionClick = () => {
-    if (questions[questions.length-1].question.trim().length > 0) {
+    if (questions[questions.length - 1].question.trim().length > 0) {
       dispatch(
         addQuestion({
           question: "",
@@ -48,7 +66,7 @@ const ManageQuestions = ({}: ManageQuestionsProps) => {
   return (
     <ContentLayout title="Manage Questions">
       <div className="grid gap-4">
-        <div>
+        <div className="grid gap-4">
           {questions.map((question, index) => {
             return (
               <QuestionEditPanel
@@ -61,7 +79,10 @@ const ManageQuestions = ({}: ManageQuestionsProps) => {
           })}
         </div>
         <div className="flex justify-between items-center">
-          <button className="bg-green-400 px-4 py-2 rounded-lg flex gap-3 items-center justify-center hover:bg-orange-400">
+          <button
+            onClick={handleQuestionSave}
+            className="bg-green-400 px-4 py-2 rounded-lg flex gap-3 items-center justify-center hover:bg-orange-400"
+          >
             Save Quiz Question
           </button>
           <button

@@ -53,7 +53,6 @@ const QuestionEditPanel = ({
   useEffect(() => {
     setAnswer(answerProp);
     setQuestionText(questionProp);
-    console.log(answerProp, questionProp, questionIndex);
   }, [questionProp, answerProp]);
 
   const onQuestionWeightChange: InputNumberProps["onChange"] = (value) => {

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { type AnswerType } from "../../types";
 import { message } from "antd";
 
-export type QuestionType = {
+export type QuestionStructureType = {
   question: string;
   answer: {
     options: string[];
@@ -14,16 +14,16 @@ export type QuestionType = {
 };
 
 type QuizProgressState = {
-  questions: QuestionType[];
+  questions: QuestionStructureType[];
   date: string;
 };
 
-const default_initial_question_structure: QuestionType = {
+const default_initial_question_structure: QuestionStructureType = {
   question: "",
   answer: {
     options: [""],
     isMultichoice: false,
-    weight: -1,
+    weight: 1,
     optionNumber: -1,
   },
 };
@@ -37,12 +37,12 @@ const addQuestionSlice = createSlice({
   name: "question",
   initialState,
   reducers: {
-    addQuestion: (state, action: PayloadAction<QuestionType>) => {
+    addQuestion: (state, action: PayloadAction<QuestionStructureType>) => {
       state.questions.push(action.payload);
     },
     editQuestion: (
       state,
-      action: PayloadAction<{ index: number; updatedQuestion: QuestionType }>
+      action: PayloadAction<{ index: number; updatedQuestion: QuestionStructureType }>
     ) => {
       const { index, updatedQuestion } = action.payload;
       if (state.questions[index]) {

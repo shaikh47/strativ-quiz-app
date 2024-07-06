@@ -24,7 +24,7 @@ const ViewUserResponseList = ({}: ViewUserResponseListProps) => {
               )}
               key={index}
               onClick={() => {
-                navigate(`/take-quiz/attempt/`);
+                navigate(`/admin/view-user-responses/${index}`);
               }}
             >
               <div className={clsx("")}>

@@ -1,5 +1,6 @@
 import { type UserType } from "../../../domains/models/user";
 import { type AnsweredStateType } from "../../../store/quizProgress/quizProgressSlice";
+import { type QuestionStructureType } from "../../../store/addQuestion/addQuestionSlice";
 
 type Quiz = {
   id: string;
@@ -25,11 +26,13 @@ export const saveUser = (user: UserType) => {
   localStorage.setItem("users", JSON.stringify(users));
 };
 
-export const saveQuizByAdmin = (quiz: Quiz) => {
+export const saveQuizByAdmin = (quiz: QuestionStructureType[]) => {
   // this is supposed to be saved by the admin
-  const quizzes = JSON.parse(localStorage.getItem(save_question_admin_key) || "[]");
-  quizzes.push(quiz);
-  localStorage.setItem(save_question_admin_key, JSON.stringify(quizzes));
+  // const quizzes = JSON.parse(
+  //   localStorage.getItem(save_question_admin_key) || "[]"
+  // );
+  // quizzes.push(quiz);
+  localStorage.setItem(save_question_admin_key, JSON.stringify(quiz));
 };
 
 export const saveUserResponse = (response: UserResponseType) => {
@@ -45,7 +48,7 @@ export const getUsers = (): any => {
   return JSON.parse(localStorage.getItem("users") || "[]");
 };
 
-export const getQuizzes = (): Quiz[] => {
+export const getQuiz = (): UserResponseType[] => {
   return JSON.parse(localStorage.getItem(save_question_admin_key) || "[]");
 };
 
@@ -57,6 +60,6 @@ export const getUserResponses = (userEmail?: string): UserResponseType[] => {
   if (userEmail) {
     return responses.filter((response) => response.userEmail === userEmail);
   }
-  
+
   return responses;
 };

@@ -72,7 +72,7 @@ const AnswerPanel = ({
   };
 
   return (
-    <div className="p-5 shadow-2xl grid gap-4 bg-orange-200 h-full min-h-64">
+    <div className="p-5 shadow-2xl grid gap-4 h-full min-h-64">
       {givenAnswer.answer.isMultichoice ? (
         <MultichoiceAnswerPanel
           options={givenAnswer.answer.options}

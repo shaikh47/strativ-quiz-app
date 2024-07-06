@@ -21,7 +21,7 @@ const AttemptedQuizViewCards = ({
           return (
             <Card
               className={clsx(
-                "h-44 w-full cursor-pointer px-5 py-4 flex flex-col gap-6"
+                "h-44 w-full cursor-pointer px-5 py-4 flex flex-col gap-6 border-1 border"
               )}
               key={index}
               onClick={() => {
