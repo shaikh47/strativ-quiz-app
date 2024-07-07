@@ -12,6 +12,7 @@ const MultichoiceAnswerPanel = ({
   selectedOption,
   onOptionClick,
 }: MultichoiceAnswerPanelProps) => {
+  
   return (
     <div className={clsx("flex flex-col gap-4 p-2")}>
       {options.map((option, index) => {

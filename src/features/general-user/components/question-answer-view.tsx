@@ -57,12 +57,14 @@ const AnswerPanel = ({
   };
 
   const onOptionClick = (optionNumber: number, option: string) => {
+    console.log(optionNumber, option, givenAnswer.answer.options);
+    
     dispatch(
       saveAnswer({
         questionName: givenAnswer.question,
         attemptedAnswer: option,
         optionNumber: optionNumber,
-        givenOptions: givenAnswer.answer.options,
+        givenOptions: givenAnswer.answer.givenOptions || givenAnswer.answer.options,
         isMarked: false,
       })
     );
@@ -116,7 +118,7 @@ const AnswerPanel = ({
       <div className="grid gap-4 h-full min-h-64">
         {givenAnswer.answer.isMultichoice ? (
           <MultichoiceAnswerPanel
-            options={givenAnswer.answer.options}
+            options={givenAnswer.answer.givenOptions || givenAnswer.answer.options}
             onOptionClick={onOptionClick}
             selectedOption={
               progress[selectedQuestionNumber].answer.optionNumber

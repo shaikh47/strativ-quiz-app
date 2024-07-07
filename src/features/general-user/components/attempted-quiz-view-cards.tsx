@@ -23,7 +23,7 @@ const AttemptedQuizViewCards = ({
     <div className="grid grid-cols-4 gap-4 sp:grid-cols-1">
       {attemptedQuizzes.map(
         (attemptedQuiz: UserResponseType, index: number) => {
-          if (attemptedQuiz.userEmail !== user?.email) return <></>;
+          if (attemptedQuiz.userEmail !== user?.email) return <div key={index} className="hidden"></div>;
           return (
             <Card
               className={clsx(

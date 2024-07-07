@@ -69,7 +69,7 @@ const quizProgress = createSlice({
           attemptedAnswers: [attemptedAnswer],
           givenOptions: givenOptions,
           optionNumber: optionNumber,
-          isMultichoice: state.quizProgress[questionIndex].answer.isMultichoice,
+          isMultichoice: givenOptions?.length > 1 || false,
         };
       }
     },

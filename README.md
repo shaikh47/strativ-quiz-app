@@ -35,6 +35,7 @@ This is a Quiz App built using React, TypeScript, Redux, and Tailwind CSS. The a
 - **Admin Features:**
   - Log in (hardcoded admin)
   - Add, edit, and delete questions
+  - there are 2 types of questions (descriptive and multi choice)
   - View answers for the questions
   - View past histories on individual questions if any
 - **User Features:**
