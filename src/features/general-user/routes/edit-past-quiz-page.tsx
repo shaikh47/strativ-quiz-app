@@ -76,7 +76,7 @@ export const EditPastQuizPage = () => {
         )}
       >
         <QuestionAnswerView
-          isPastQuiz={false}
+          isPastQuiz={true}
           selectedQuestionNumber={selectedQuestionNumber}
           selectedQuestion={attemptedResponse[selectedQuestionNumber]}
           nextClick={handleNextClick}

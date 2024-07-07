@@ -138,6 +138,7 @@ const AnswerPanel = ({
 };
 
 const QuestionAnswerView = ({
+  isPastQuiz = false,
   selectedQuestion,
   selectedQuestionNumber,
   nextClick,
@@ -150,7 +151,9 @@ const QuestionAnswerView = ({
         selectedQuestionNumber={selectedQuestionNumber}
       />
       <AnswerPanel
-        givenAnswer={getQuiz()[selectedQuestionNumber]}
+        givenAnswer={
+          isPastQuiz ? selectedQuestion : getQuiz()[selectedQuestionNumber]
+        }
         selectedQuestionNumber={selectedQuestionNumber}
       />
 
