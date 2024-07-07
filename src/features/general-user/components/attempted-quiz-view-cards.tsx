@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { type UserResponseType } from "../api/local-storage-interactor-api";
 import Avatar from "antd/es/avatar/avatar";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearProgressState } from "../../../store/quizProgress/quizProgressSlice";
+import { type RootStateType } from "../../../store/rootStore";
 
 export type AttemptedQuizViewCardProps = {
   attemptedQuizzes: UserResponseType[];
@@ -16,11 +17,13 @@ const AttemptedQuizViewCards = ({
 }: AttemptedQuizViewCardProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((store: RootStateType) => store.auth.user);
 
   return (
     <div className="grid grid-cols-4 gap-4 sp:grid-cols-1">
       {attemptedQuizzes.map(
         (attemptedQuiz: UserResponseType, index: number) => {
+          if (attemptedQuiz.userEmail !== user?.email) return <></>;
           return (
             <Card
               className={clsx(

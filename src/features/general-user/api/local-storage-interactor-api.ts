@@ -57,7 +57,6 @@ export const updateUserResponse = (
     }
   }
 
-  console.log("this is the updated payload: ", newPayload);
   userResponses[responseIndex] = newPayload;
   localStorage.setItem(save_response_key, JSON.stringify(userResponses));
 };
