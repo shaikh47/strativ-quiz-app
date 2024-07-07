@@ -43,7 +43,6 @@ const quizProgress = createSlice({
       state.lastAttemptDate = action.payload;
     },
     loadProgressState(state, action: PayloadAction<AnsweredStateType[]>) {
-      console.log("loadState payload:", action.payload);
       state.quizProgress = action.payload;
     },
     clearProgressState(state) {

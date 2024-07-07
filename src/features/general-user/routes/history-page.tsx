@@ -15,11 +15,6 @@ export const QuizHistoryPage = () => {
 
   const user = useSelector((store: RootStateType) => store.auth.user);
   const attempted_quizzes: UserResponseType[] = getUserResponses(user?.email!);
-  const quizProgress = useSelector(
-    (state: RootStateType) => state.quizProgress.quizProgress
-  );
-  console.log("this shit: ", quizProgress);
-
   return (
     <ContentLayout title={"Taken Quizzes"}>
       <div className={clsx("grid gap-10")}>

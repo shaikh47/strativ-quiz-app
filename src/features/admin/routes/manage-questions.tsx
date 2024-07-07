@@ -42,7 +42,6 @@ const ManageQuestions = ({}: ManageQuestionsProps) => {
   };
 
   const handleQuestionSave = () => {
-    console.log("this should be saved: ", questions, quizValidation(questions));
     if (!quizValidation(questions)) {
       message.error("Please complete all of your questions and options.");
     } else {

@@ -18,7 +18,7 @@ const QuestionViewPanel = ({ quiz }: QuestionViewPanelProps) => {
   const handleOk = () => {
     setIsModalOpen(false);
   };
-
+  
   return (
     <div className="border bg-white border-customBorder rounded-xl p-4">
       {quiz.answer.attemptedAnswers.length > 1 && (

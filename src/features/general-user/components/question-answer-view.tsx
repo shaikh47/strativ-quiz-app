@@ -78,7 +78,6 @@ const AnswerPanel = ({
         isMarked: false,
       })
     );
-    console.log("on typing end", typedAnswer);
   };
 
   return (
