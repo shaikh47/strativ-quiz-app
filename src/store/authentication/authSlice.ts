@@ -16,21 +16,21 @@ const mockUsers: User[] = [
     username: "shaikhadmin",
     email: "admin1@gmail.com",
     password:
-      "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", // This should be hashed in a real application
+      "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", // hashed password
     role: "admin",
   },
   {
     username: "shaikhuser",
     email: "user1@gmail.com",
     password:
-      "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", // This should be hashed in a real application
+      "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", // hashed password
     role: "user",
   },
   {
     username: "shaikh-school",
     email: "user2@gmail.com",
     password:
-      "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", // This should be hashed in a real application
+      "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", // hashed password
     role: "user",
   },
 ];
