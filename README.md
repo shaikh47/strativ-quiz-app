@@ -1,30 +1,76 @@
-# React + TypeScript + Vite
+# Strativ Quiz App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
 
-Currently, two official plugins are available:
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Site link: https://stirring-malabi-f286a6.netlify.app/
 
-## Expanding the ESLint configuration
+## Demo Credentials 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+  [password is hashed and then stored in the application]
 
-- Configure the top-level `parserOptions` property like this:
+  ### Admin
+  ```
+  email: admin1@gmail.com
+  password: 1234
+  ```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+  ### General User
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+  ```
+  email: user1@gmail.com
+  password: 1234
+  ```
+
+## Introduction
+
+This is a Quiz App built using React, TypeScript, Redux, and Tailwind CSS. The app has two types of users: Admin and General User. Admins can add, edit, and delete questions, while general users can log in and answer those questions. Users can also edit their answers, with a history of previous answers being displayed.
+
+## Features
+
+- **Admin Features:**
+  - Log in (hardcoded admin)
+  - Add, edit, and delete questions
+  - View answers for the questions
+  - View past histories on individual questions if any
+- **User Features:**
+  - Self sign-in and registration
+  - participate in the quiz
+  - Edit answers (with history of previous answers)
+- **General:**
+  - Data persisted locally using browser's local storage
+  - Protected routes for admin pages
+
+## Technologies Used
+
+- React
+- TypeScript
+- Redux
+- Tailwind CSS
+- Local Storage for data persistence
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- Node.js
+- npm
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <ssh link>
+   ```
+2. Install dependencies and run the app
+    ```
+    cd strativ-quiz-app
+    npm i
+    npm run dev
+    ```
